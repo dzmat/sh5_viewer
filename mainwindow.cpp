@@ -27,6 +27,24 @@ void mylogs(std::string msg)
     mylog(s);
 }
 
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+{
+    ui->setupUi(this);
+    //    DecimalSeparator='.';
+    world = std::make_shared<TWorld>();
+    ui->Image1->setWorld(world);
+    logptr = ui->textEdit_Memo1;// very dangerous exporting, dirty and quick
+    load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-03-31_1613/CampaignMission.mis");
+
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
 // int read_entity_list_ptr(TStringList** list);
 // int read_entity_list_ptr(TStringList** list)
 // {
@@ -283,22 +301,6 @@ void MainWindow::redraw(){
 }
 
 // ---------------------------------------------------------------------------
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
-    ui->setupUi(this);
-    //    DecimalSeparator='.';
-    coords_unit_init();
-    world = std::make_shared<TWorld>();
-    logptr = ui->textEdit_Memo1;// very dangerous exporting, dirty and quick
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
 
 void MainWindow::on_actionOpen_triggered()
 {
