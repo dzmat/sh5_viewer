@@ -307,7 +307,7 @@ void MainWindow::on_actionOpen_triggered()
     QString fileName = QFileDialog::getOpenFileName(
         this
         , "Open Save Game"
-        , "C:\\Users\\dinozaur\\Documents\\SH5\\data\\cfg\\SaveGames\\"
+        , "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-03-31_1613/CampaignMission.mis"
         , "Save Game (*.mis)"
         );
     if (fileName.isEmpty())return;
