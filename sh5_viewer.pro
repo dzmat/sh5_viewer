@@ -28,12 +28,16 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     coords.cpp \
-    support_classes.cpp
+    support_classes.cpp \
+    tmyqframe.cpp \
+    tworld.cpp
 
 HEADERS += \
         mainwindow.h \
     coords.h \
-    support_classes.h
+    support_classes.h \
+    tmyqframe.h \
+    tworld.h
 
 FORMS += \
         mainwindow.ui

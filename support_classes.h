@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#include <QTextEdit>
 #include "coords.h"
 
 class TStringList : public std::vector<std::string>
