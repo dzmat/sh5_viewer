@@ -67,7 +67,3 @@ void TmyQFrame::drag_end(int X, int Y)
     viewpoint.pos += (drag.gc - t);
     drag.started = false;
 }
-
-void coords_unit_init()
-{
-}

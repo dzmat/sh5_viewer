@@ -19,7 +19,12 @@ struct st_viewpoint
     double m;
     int o_x, o_y;
 };
-
+struct st_drag
+{
+    TGameCoord gc;// game coordinates
+    int mX, mY;// mouse coordinates
+    bool started;
+};
 
 
 
@@ -68,8 +73,14 @@ class TmyQFrame : public QFrame
         //    }
     }
 
-    void redraw()
+    QColor get_color_by_type(int type);
+    void draw_arrow(QPainter *c, int x, int y, double len, double heading, QColor col, Qt::PenStyle style, int width);
+    void draw_unit(QPainter *p, const TUnit *u, QColor cl);
+
+protected:
+    void paintEvent(QPaintEvent *) override
     {
+        QPainter painter(this);
         // TODO: rewrite painting code
         //    int iw=Image1->Width;
         //    int ih=Image1->Height;
@@ -102,16 +113,7 @@ class TmyQFrame : public QFrame
         //    if (selected_way!=-1){
         //        draw_way(groups[selected_way]->way,psSolid);
         //    }
-    }
 
-    QColor get_color_by_type(int type);
-    void draw_arrow(QPainter *c, int x, int y, double len, double heading, QColor col, Qt::PenStyle style, int width);
-    void draw_unit(QPainter *p, const TUnit *u, QColor cl);
-
-protected:
-    void paintEvent(QPaintEvent *) override
-    {
-        QPainter painter(this);
     }
 
 public:

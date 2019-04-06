@@ -76,18 +76,4 @@ public:
     double x, y;
 };
 
-struct st_drag
-{
-    TGameCoord gc;// game coordinates
-    int mX, mY;// mouse coordinates
-    bool started;
-};
-extern st_drag drag;
-
-void drag_start(int X, int Y);
-void drag_end(int X, int Y);
-void coords_unit_init();
-
-
-
 #endif // COORDS_H
