@@ -8,7 +8,7 @@
 
 typedef void *HANDLE;
 HANDLE file_handle;
-#define MY_EOF -1
+const int MY_EOF = -1;
 const int MY_BUF_SZ = 1024;
 char buf[MY_BUF_SZ];
 unsigned long buf_count, buf_pos;
@@ -82,13 +82,14 @@ bool check_header(std::string &instr, const std::string &type)
     int ilen = instr.length();
     int tlen = type.length();
     if (ilen < tlen + 2) return false;
-    if ((instr[1] != '[') || (instr[ilen] != ']')) return false;
-    std::string t = instr.substr(2, ilen - 2);
-    if (t.substr(1, tlen) != type) return false;
-    t = t.substr(tlen + 1, t.length() - tlen);
-    ilen = t.length();
-    for (int i = 1; i <= ilen; i++)
-        if (!isdigit(t[i]))
+    if ((instr[0] != '[') || (instr[ilen-1] != ']'))
+        return false;
+    std::string t = instr.substr(1, ilen - 2);
+    if (t.substr(0, tlen) != type)
+        return false;
+    std::string tt = t.substr(tlen, t.length() - tlen);
+    for(auto& c : tt)
+        if (!isdigit(c))
             return false;
     return true;
 }
@@ -102,6 +103,11 @@ bool check_for_my_unit(const TStringList &ls)
     return true;
 }
 
+/**
+ * @brief read_entity_list1
+ * @param list (out) TStringList receives all strings of block to parse
+ * @return number of non-head lines. -1 if EOF
+ */
 int read_entity_list1(TStringList &list)
 {
     if (unread_buf.size()) {
@@ -176,15 +182,15 @@ double TWay::min_distance_to(const TGameCoord &dest)
 bool TGroup::has_type(int type)
 {
     if (type <= 0) return true;
-    for (int i = 0; i < size; i++)
-        if (units[i].type == type) return true;
+    for (auto& u : units)
+        if (u.type == type) return true;
     return false;
 }
 
 bool TGroup::has_zero_speed()
 {
-    for (int i = 0; i < size; i++)
-        if (units[i].speed < 0.1) return true;
+    for (auto& u : units)
+            if (u.speed < 0.1) return true;
     return false;
 }
 
@@ -192,7 +198,7 @@ void TGroup::load()
 {
 
     TStringList ls;
-    for (int i = 0; i < size; ) {
+    for (int i = 0; i < size(); ) {
         read_entity_list1(ls);
         std::string head = ls[0];
         unread_entity_list1(ls);

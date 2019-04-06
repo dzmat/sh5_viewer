@@ -18,6 +18,7 @@ public:
     {
         heading = 0.0; speed = 0.0;
         is_german = is_warship = false;
+        type=0xDEADBEEF;
     }
 
     void load();
@@ -53,13 +54,13 @@ class TGroup{
     ~TGroup(){
     }
     void load();
-    int size;
     std::vector<TUnit> units;
     TWay way;
     bool filter_draw_group;
     bool filter_draw_way;
     bool has_zero_speed();
     bool has_type(int type);
+    size_t size(){return units.size();}
 };
 
 #define MAX_GROUPS 10000
@@ -120,7 +121,7 @@ public:
     void apply_group_filter(int min_group,bool zeroSpeedChecked=false)
     {
         for (TGroup* tg : wpWorld->groups){
-            if (tg->size<min_group){
+            if (tg->size()<min_group){
                 tg->filter_draw_group=false;
                 continue;//do not draw small groups
             }
