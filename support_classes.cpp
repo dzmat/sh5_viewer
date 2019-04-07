@@ -2,7 +2,7 @@
 
 const std::string TStringList::value(const std::string inkey) const
 {
-    auto key = inkey+"=";
+    auto key = inkey + "=";
     for (auto &str : *this) {
         auto pos = str.find(key);
         if (pos == 0)           // found right at the beginning of the string
@@ -13,10 +13,14 @@ const std::string TStringList::value(const std::string inkey) const
 
 void TStringList::setValue(const std::string &inkey, const std::string &val)
 {
-    auto key = inkey+"=";
+    auto key = inkey + "=";
     for (auto &str : *this) {
         auto pos = str.find(key);
-        if (pos == 0)           // found right at the beginning of the string
+        if (pos == 0) {          // found right at the beginning of the string
             str = key + val;
+            return;
+        }
     }
+    // string by key is not found, add new one
+    this->push_back(key + val);
 }

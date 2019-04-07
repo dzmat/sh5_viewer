@@ -30,14 +30,16 @@ SOURCES += \
     coords.cpp \
     support_classes.cpp \
     tmyqframe.cpp \
-    tworld.cpp
+    tworld.cpp \
+    mylog.cpp
 
 HEADERS += \
         mainwindow.h \
     coords.h \
     support_classes.h \
     tmyqframe.h \
-    tworld.h
+    tworld.h \
+    mylog.h
 
 FORMS += \
         mainwindow.ui

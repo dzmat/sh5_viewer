@@ -28,7 +28,7 @@ inline int read_char(char &ch)
                 wchar_t msg[2048];
                 FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
                               NULL, err, 0, msg, 2048, NULL);
-                mylog(QString::fromWCharArray(msg, 2048));
+                mylogger::log(QString::fromWCharArray(msg, 2048));
             }
             ch = 0;
             return 0;// EOF
@@ -168,7 +168,7 @@ double line_min_distance(const TGameCoord &a, const TGameCoord &b, const TGameCo
     return (a + v * proj - d).len();// nearest point is somewhere in the line cut
 }
 
-double TWay::min_distance_to(const TGameCoord &dest)
+double TWay::min_distance_to(const TGameCoord &dest) const
 {
     size_t size = data.size();
     double min_r = 1e99;
@@ -198,7 +198,7 @@ void TGroup::load()
 {
 
     TStringList ls;
-    for (int i = 0; i < size(); ) {
+    for (size_t i = 0; i < size(); ) {
         read_entity_list1(ls);
         std::string head = ls[0];
         unread_entity_list1(ls);
@@ -305,8 +305,8 @@ void TWorld::load_file(const QString &fname)
         if (res == MY_EOF) break;
         cnt += res;;
     }
-    mylog(QString("loaded entities: %1").arg(cnt));
-    mylog(QString("loaded groups: %1").arg(groups.size()));
-    mylog(QString("loaded units: %1").arg(my_units));
+    mylogger::log(QString("loaded entities: %1").arg(cnt));
+    mylogger::log(QString("loaded groups: %1").arg(groups.size()));
+    mylogger::log(QString("loaded units: %1").arg(my_units));
     CloseHandle(file_handle);
 }

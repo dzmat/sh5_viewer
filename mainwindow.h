@@ -16,7 +16,6 @@ namespace Ui
     class MainWindow;
 }
 
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -27,32 +26,24 @@ public:
 
 private slots:
     void on_actionOpen_triggered();
-
     void on_pbToBoat_clicked();
-
     void on_spinMinGroup_valueChanged(int arg1);
-
     void on_chZeroSpeeds_stateChanged(int arg1);
-
     void on_eradius_of_intercept_textChanged(const QString &arg1);
-
-
     void on_tbZoomIn_clicked();
-
     void on_tbZoomOut_clicked();
-
     void on_e_flt_type_of_ship_textChanged(const QString &arg1);
+    void update_m();
+    void update_polar_coords(double r,double head);
+
+    void on_e_coef_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;
     std::shared_ptr<TWorld> world;
-
-
-
-    void update_m();
-    void redraw();
+    std::shared_ptr<TFilter> filter;
     void load_world(const QString& fname);
-
+    void applygroupfilter();
 };
 
 #endif // MAINWINDOW_H
