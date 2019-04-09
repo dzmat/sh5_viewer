@@ -287,14 +287,15 @@ int TWorld::load_entity()
     return 0;
 }
 
-void TWorld::load_file(const QString &fname)
+bool TWorld::load_file(const QString &fname)
 {
     std::wstring ws_fname = fname.toStdWString();
     file_handle = CreateFile(
         ws_fname.c_str(),
         GENERIC_READ, 0, NULL, OPEN_EXISTING,
         FILE_FLAG_SEQUENTIAL_SCAN, NULL);
-    if (file_handle == INVALID_HANDLE_VALUE) return;
+    if (file_handle == INVALID_HANDLE_VALUE)
+        return false;
     buf_pos = buf_count = 0;// init for read_char
     init_read();
     reset_groups();
@@ -305,8 +306,11 @@ void TWorld::load_file(const QString &fname)
         if (res == MY_EOF) break;
         cnt += res;;
     }
+    if (cnt==0)
+        return false;
     mylogger::log(QString("loaded entities: %1").arg(cnt));
     mylogger::log(QString("loaded groups: %1").arg(groups.size()));
     mylogger::log(QString("loaded units: %1").arg(my_units));
     CloseHandle(file_handle);
+    return true;
 }

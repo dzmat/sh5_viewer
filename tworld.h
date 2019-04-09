@@ -113,7 +113,7 @@ public:
     }
 
     int load_entity();
-    void load_file(const QString &fname);
+    bool load_file(const QString &fname);
 };
 
 class TFilter
