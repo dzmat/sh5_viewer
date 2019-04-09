@@ -34,7 +34,7 @@ private slots:
     void on_tbZoomOut_clicked();
     void on_e_flt_type_of_ship_textChanged(const QString &arg1);
     void update_m();
-    void update_polar_coords(double r,double head);
+    void update_polar_coords(double r, double head);
 
     void on_e_coef_textChanged(const QString &arg1);
 
@@ -46,7 +46,7 @@ private:
     std::shared_ptr<TFilter> filter;
     QString saveGameFileName;
 
-    void load_world(const QString& fname);
+    void load_world(const QString &fname);
     void applyGroupFilter();
     void installNewWorld(std::shared_ptr<TWorld> iw);
 };

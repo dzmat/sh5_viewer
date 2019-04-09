@@ -30,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 #endif
     // interface start setup
     ui->Image1->interceptRadius = 50;
-    //ui->eradius_of_intercept->setText("50");
+    // ui->eradius_of_intercept->setText("50");
     QObject::connect(ui->Image1, &TmyQFrame::size_changed, this, &MainWindow::update_m);
     QObject::connect(ui->Image1, &TmyQFrame::scale_changed, this, &MainWindow::update_m);
     QObject::connect(ui->Image1, &TmyQFrame::changed_polar_coords, this, &MainWindow::update_polar_coords);
@@ -163,7 +163,7 @@ void MainWindow::on_eradius_of_intercept_textChanged(const QString &)
     bool ok;
     int test = ui->eradius_of_intercept->text().toInt(&ok);
     if (!ok) return; // wrong value at input? do nothing.
-    ui->Image1->interceptRadius=test;
+    ui->Image1->interceptRadius = test;
     filter->apply_way_filter(test);
     ui->Image1->update();
 }
@@ -199,8 +199,8 @@ void MainWindow::on_e_coef_textChanged(const QString &arg1)
 {
     bool ok;
     double val = arg1.toDouble(&ok);
-    if(!ok)return;
-    ui->Image1->viewpoint.m=val;
+    if (!ok) return;
+    ui->Image1->viewpoint.m = val;
     ui->Image1->update();
     update_m();
 }
