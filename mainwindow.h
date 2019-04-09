@@ -35,10 +35,8 @@ private slots:
     void on_e_flt_type_of_ship_textChanged(const QString &arg1);
     void update_m();
     void update_polar_coords(double r, double head);
-
     void on_e_coef_textChanged(const QString &arg1);
-
-    void on_pushButton_clicked();
+    void on_pbReloadFile_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -205,7 +205,7 @@ void MainWindow::on_e_coef_textChanged(const QString &arg1)
     update_m();
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_pbReloadFile_clicked()
 {
     load_world(saveGameFileName);
 }

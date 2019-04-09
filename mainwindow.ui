@@ -77,9 +77,9 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pbReloadFile">
            <property name="text">
-            <string>Reload World</string>
+            <string>Reload File</string>
            </property>
           </widget>
          </item>
