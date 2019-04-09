@@ -43,7 +43,7 @@ private:
     std::shared_ptr<TWorld> world;
     std::shared_ptr<TFilter> filter;
     void load_world(const QString& fname);
-    void applygroupfilter();
+    void applyGroupFilter();
 };
 
 #endif // MAINWINDOW_H

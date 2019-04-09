@@ -120,7 +120,7 @@ void MainWindow::on_pbToBoat_clicked()
     ui->Image1->update();
 }
 
-void MainWindow::applygroupfilter()
+void MainWindow::applyGroupFilter()
 {
     filter->apply_group_filter(
         ui->spinMinGroup->value(),
@@ -131,12 +131,12 @@ void MainWindow::applygroupfilter()
 
 void MainWindow::on_spinMinGroup_valueChanged(int )
 {
-    applygroupfilter();
+    applyGroupFilter();
 }
 
 void MainWindow::on_chZeroSpeeds_stateChanged(int )
 {
-    applygroupfilter();
+    applyGroupFilter();
 }
 
 void MainWindow::on_eradius_of_intercept_textChanged(const QString &)
