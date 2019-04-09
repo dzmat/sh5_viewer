@@ -274,6 +274,9 @@
               <height>0</height>
              </size>
             </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
            </widget>
           </item>
           <item row="1" column="1">
@@ -302,6 +305,9 @@
               <width>150</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
             </property>
            </widget>
           </item>
@@ -414,9 +420,6 @@
               <height>0</height>
              </size>
             </property>
-            <property name="readOnly">
-             <bool>true</bool>
-            </property>
            </widget>
           </item>
           <item row="3" column="0">
@@ -445,9 +448,6 @@
               <width>100</width>
               <height>0</height>
              </size>
-            </property>
-            <property name="readOnly">
-             <bool>true</bool>
             </property>
            </widget>
           </item>
