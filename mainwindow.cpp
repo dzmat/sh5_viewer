@@ -16,6 +16,7 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
+    , saveGameFileName("")
 {
     ui->setupUi(this);
     mylogger::logptr = ui->textEdit_Memo1;// very dangerous exporting, dirty and quick
@@ -23,9 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     //    DecimalSeparator='.';
 
     // world setup
-    world = std::make_shared<TWorld>();
-    ui->Image1->setWorld(world);
-    filter = std::make_shared<TFilter>(world);
+    installNewWorld(std::make_shared<TWorld>());
 #ifdef MDEBUG
     load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-03-31_1613/CampaignMission.mis");
 #endif
@@ -44,13 +43,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::load_world(const QString &fname)
 {
-    world->load_file(fname);
-    ui->Image1->worldChanged();
-    mylogger::log("U-Boat params:");
-    world->my_boat.dump(ui->textEdit_Memo1);
-    ui->Image1->viewpoint.pos = world->my_boat.coord;
-    ui->Image1->viewpoint.m = ui->e_coef->text().toDouble();
-    update_m();
+    std::shared_ptr<TWorld>wp = std::make_shared<TWorld>();
+    bool ok = wp->load_file(fname);
+    if (ok) {
+        saveGameFileName = fname;
+        installNewWorld(wp);
+        ui->Image1->worldChanged();
+        mylogger::log("U-Boat params:");
+        world->my_boat.dump(ui->textEdit_Memo1);
+        ui->Image1->viewpoint.pos = world->my_boat.coord;
+        ui->Image1->viewpoint.m = ui->e_coef->text().toDouble();
+        update_m();
+    }
+    else {
+        ui->e_tmp->setText("Failed to load world");
+    }
 }
 
 // void __fastcall TForm1::btn_go_rightClick(TObject *Sender)
@@ -134,6 +141,13 @@ void MainWindow::applyGroupFilter()
     ui->Image1->update();
 }
 
+void MainWindow::installNewWorld(std::shared_ptr<TWorld> iw)
+{
+    world = iw;
+    ui->Image1->setWorld(world);
+    filter = std::make_shared<TFilter>(world);
+}
+
 void MainWindow::on_spinMinGroup_valueChanged(int )
 {
     applyGroupFilter();
@@ -189,4 +203,9 @@ void MainWindow::on_e_coef_textChanged(const QString &arg1)
     ui->Image1->viewpoint.m=val;
     ui->Image1->update();
     update_m();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    load_world(saveGameFileName);
 }

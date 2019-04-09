@@ -38,12 +38,17 @@ private slots:
 
     void on_e_coef_textChanged(const QString &arg1);
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     std::shared_ptr<TWorld> world;
     std::shared_ptr<TFilter> filter;
+    QString saveGameFileName;
+
     void load_world(const QString& fname);
     void applyGroupFilter();
+    void installNewWorld(std::shared_ptr<TWorld> iw);
 };
 
 #endif // MAINWINDOW_H
