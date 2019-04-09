@@ -26,8 +26,9 @@ MainWindow::MainWindow(QWidget *parent)
     world = std::make_shared<TWorld>();
     ui->Image1->setWorld(world);
     filter = std::make_shared<TFilter>(world);
+#ifdef MDEBUG
     load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-03-31_1613/CampaignMission.mis");
-
+#endif
     // interface start setup
     ui->Image1->interceptRadius = 50;
     //ui->eradius_of_intercept->setText("50");
@@ -105,7 +106,11 @@ void MainWindow::on_actionOpen_triggered()
     QString fileName = QFileDialog::getOpenFileName(
         this
         , "Open Save Game"
-        , "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-03-31_1613/CampaignMission.mis"
+#ifdef MDEBUG
+        , "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-04-08_1944/CampaignMission.mis"
+#else
+        , ""
+#endif
         , "Save Game (*.mis)"
         );
     if (fileName.isEmpty()) return;
