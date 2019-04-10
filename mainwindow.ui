@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Silent Hunter 5 save game viewer</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="res1.qrc">
+    <normaloff>:/icons/Icons/Icon1.svg</normaloff>:/icons/Icons/Icon1.svg</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
@@ -548,6 +552,8 @@
    </slots>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="res1.qrc"/>
+ </resources>
  <connections/>
 </ui>
