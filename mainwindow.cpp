@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     // world setup
     installNewWorld(std::make_shared<TWorld>());
 #ifdef MDEBUG
-    load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-03-31_1613/CampaignMission.mis");
+    load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-04-08_1944/CampaignMission.mis");
 #endif
     // interface start setup
     ui->Image1->interceptRadius = 50;
@@ -54,6 +54,7 @@ void MainWindow::load_world(const QString &fname)
         ui->Image1->viewpoint.pos = world->my_boat.coord;
         ui->Image1->viewpoint.m = ui->e_coef->text().toDouble();
         update_m();
+        ui->e_tmp->setText("File loaded successfully");
     }
     else {
         ui->e_tmp->setText("Failed to load world");
