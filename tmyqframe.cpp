@@ -271,13 +271,13 @@ void TmyQFrame::wheelEvent(QWheelEvent *event)
     TGameCoord b = i2g(my_coord(p.x(), p.y()));
     TGameCoord d = viewpoint.pos - b;
     while (numSteps > 0) {
-        viewpoint.m *= WheelStep;
-        d = d * WheelStep;
+        viewpoint.m /= WheelStep;
+        d = d / WheelStep;
         numSteps--;
     }
     while (numSteps < 0) {
-        viewpoint.m /= WheelStep;
-        d = d / WheelStep;
+        viewpoint.m *= WheelStep;
+        d = d * WheelStep;
         numSteps++;
     }
     TGameCoord newvc = b + d;// main math here
