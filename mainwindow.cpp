@@ -61,36 +61,6 @@ void MainWindow::load_world(const QString &fname)
     }
 }
 
-// void __fastcall TForm1::btn_go_rightClick(TObject *Sender)
-// {
-//    viewpoint.x+=(50*viewpoint.m);
-//    redraw();
-// }
-////---------------------------------------------------------------------------
-
-// void __fastcall TForm1::gtn_go_leftClick(TObject *Sender)
-// {
-//    viewpoint.x-=(50*viewpoint.m);
-//    redraw();
-// }
-////---------------------------------------------------------------------------
-
-// void __fastcall TForm1::btn_go_downClick(TObject *Sender)
-// {
-//    viewpoint.y-=(50*viewpoint.m);
-//    redraw();
-// }
-////---------------------------------------------------------------------------
-
-// void __fastcall TForm1::btn_go_upClick(TObject *Sender)
-// {
-//    viewpoint.y+=(50*viewpoint.m);
-//    redraw();
-// }
-////---------------------------------------------------------------------------
-
-
-
 // ---------------------------------------------------------------------------
 
 void MainWindow::update_m()

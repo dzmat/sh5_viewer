@@ -4,7 +4,7 @@ namespace mylogger
 {
     QTextEdit *logptr;
 
-    void log(QString msg)
+    void log(const QString& msg)
     {
         logptr->append(msg);
     }
