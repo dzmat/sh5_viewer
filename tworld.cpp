@@ -223,7 +223,8 @@ void TWay::load()
     TStringList ls;
     while (1) {
         int res = read_entity_list1(ls);
-        if (res == MY_EOF) return; if (ls[0].find("Waypoint ") != std::string::npos) {
+        if (res == MY_EOF) return;
+        if (ls[0].find("Waypoint ") != std::string::npos) {
             TGameCoord t;
             coord_load(t, ls);
             data.push_back(t);
