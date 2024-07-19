@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     // world setup
     installNewWorld(std::make_shared<TWorld>());
 #ifdef MDEBUG
-    load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-04-08_1944/CampaignMission.mis");
+    load_world("C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000002/Campaign-2020-08-30_1706/CampaignMission.mis");
 #endif
     // interface start setup
     ui->Image1->interceptRadius = 50;
@@ -85,7 +85,7 @@ void MainWindow::on_actionOpen_triggered()
         this
         , "Open Save Game"
 #ifdef MDEBUG
-        , "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000001/Campaign-2019-04-08_1944/CampaignMission.mis"
+        , "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000002/Campaign-2020-08-30_1706/CampaignMission.mis"
 #else
         , ""
 #endif
