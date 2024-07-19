@@ -6,8 +6,8 @@
 namespace mylogger
 {
     extern QTextEdit *logptr;
-    void log(QString msg);
-    void logs(std::string msg);
+    void log(const QString &msg);
+    void logs(const std::string &msg);
 };
 
 #endif // MYLOG_H
