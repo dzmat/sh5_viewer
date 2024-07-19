@@ -171,7 +171,7 @@ void TmyQFrame::mouseMoveEvent(QMouseEvent *event)
 
 void summary_add_unit(TStringList *sum, const TUnit &u)
 {
-    std::string s = sum->value(u.s_class);
+    std::string s = sum->getValue(u.s_class);
     int cnt = 0;
     if (s.length() != 0)
         cnt = std::stoi(s);

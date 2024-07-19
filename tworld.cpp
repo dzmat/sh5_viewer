@@ -98,7 +98,7 @@ bool check_for_my_unit(const TStringList &ls)
 {
     std::string s = ls[0];
     if (!check_header(s, "Unit ")) return false;
-    std::string t = ls.value("Commander");
+    std::string t = ls.getValue("Commander");
     if (t != std::string("1")) return false;
     return true;
 }
@@ -147,7 +147,7 @@ bool check_for_group(const TStringList &ls)
 
 double read_double(const TStringList &ls, const std::string &key)
 {
-    std::string t = ls.value(key);
+    std::string t = ls.getValue(key);
     if (t.length() == 0) return 0.0;
     return stod(t);
 }
@@ -249,12 +249,12 @@ void TUnit::load(const TStringList &ls)
     //    try{
     heading = read_double(ls, "Heading");
     speed = read_double(ls, "Speed");
-    s_name = ls.value("Name");
-    s_class = ls.value("Class");
-    type = stoi(ls.value("Type"));
+    s_name = ls.getValue("Name");
+    s_class = ls.getValue("Class");
+    type = stoi(ls.getValue("Type"));
     coord_load(coord, ls);
     if (( type <= 199) && ( type >= 100) ) is_warship = false; else is_warship = true;
-    if (ls.value("Origin") == "German") is_german = true; else is_german = false;
+    if (ls.getValue("Origin") == "German") is_german = true; else is_german = false;
     //    }catch(EConvertError& E){
     //        QMessageBox::warning(NULL,"Exception encountered","exception while loading Unit");
     //    };

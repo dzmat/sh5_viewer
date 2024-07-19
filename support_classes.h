@@ -4,12 +4,11 @@
 #include <string>
 #include <vector>
 
-#include "coords.h"
 
 class TStringList : public std::vector<std::string>
 {
 public:
-    const std::string value(const std::string inkey) const;
+    const std::string getValue(const std::string inkey) const;
 
     void setValue(const std::string &inkey, const std::string &val);
 };

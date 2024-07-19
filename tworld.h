@@ -90,7 +90,7 @@ public:
 
     void load_group(TStringList &ls)
     {
-        std::string t = ls.value("CommandUnitName");
+        std::string t = ls.getValue("CommandUnitName");
 
         mylogger::logs(t);
 
