@@ -6,10 +6,10 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 
-#include "coords.h"
-#include "support_classes.h"
+//#include "coords.h"
+//#include "support_classes.h"
 #include "tworld.h"
-#include "tmyqframe.h"
+//#include "tmyqframe.h"
 
 namespace Ui
 {
