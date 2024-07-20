@@ -262,13 +262,10 @@ void TUnit::load(const TStringList &ls)
 
 void TUnit::dump(QTextEdit *d) const
 {
-    QString s;
-    s = QString("Type=%1 class=%2 name=%3").arg(type).arg(s_class.c_str()).arg(s_name.c_str());
-    d->append(s);
-    s.sprintf("Heading: %f Speed: %f", heading, speed);
-    d->append(s);
-    s.sprintf("Long: %f Lat: %f", coord.x, coord.y);
-    d->append(s);
+    d->append(QString("Type=%1 class=%2 name=%3").arg(type).arg(s_class.c_str(),s_name.c_str()));
+    d->append(QString("Heading: %1 Speed: %2").arg(heading,0,'f').arg(speed,0,'f'));
+    d->append(QString("Long: %1 Lat: %2").arg(coord.x,0,'f').arg(coord.y,0,'f'));
+
 }
 
 int TWorld::load_entity()

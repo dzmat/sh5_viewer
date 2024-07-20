@@ -73,8 +73,8 @@ void MainWindow::update_m()
 
 void MainWindow::update_polar_coords(double r, double head)
 {
-    ui->e_dist->setText(QString().sprintf("%.3f", r));
-    ui->e_head->setText(QString().sprintf("%4f", head));
+    ui->e_dist->setText(QString("%1").arg(r, 0,'f',3));
+    ui->e_head->setText(QString("%1").arg(head, 5,'f',1,'0'));
 }
 
 // ---------------------------------------------------------------------------

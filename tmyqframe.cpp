@@ -266,7 +266,7 @@ void TmyQFrame::wheelEvent(QWheelEvent *event)
     const double WheelStep = 1.2;
     QPoint numDegrees = event->angleDelta() / 8;
     int numSteps = numDegrees.y() / 15;
-    QPoint p = event->pos();
+    QPoint p = event->position().toPoint();
     // TGameCoord vc=viewpoint.pos;
     TGameCoord b = i2g(my_coord(p.x(), p.y()));
     TGameCoord d = viewpoint.pos - b;
