@@ -3,7 +3,6 @@
 #include <QMouseEvent>
 
 #include "tmyqframe.h"
-#include "mainwindow.h"
 #include "mylog.h"
 
 TmyQFrame::TmyQFrame(QWidget *parent)
