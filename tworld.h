@@ -16,9 +16,10 @@ public:
         heading = 0.0; speed = 0.0;
         is_german = is_warship = false;
         type = 0xDEADBEEF;
+        is_command = false;
     }
 
-    void load();
+    void load(std::string command_unit_name);
     void load(const TStringList &ls);
     void dump(QTextEdit *d) const;
     double heading, speed;
@@ -26,6 +27,7 @@ public:
     bool is_warship, is_german;
     TGameCoord coord;
     std::string s_name, s_class;
+    bool is_command;
 };
 
 class TWay
@@ -39,9 +41,15 @@ public:
     {
     }
 
+    typedef struct
+    {
+        int waypoint_index;
+        TGameCoord coord;
+    } TWayPoint;
+
     void load();
     size_t size() const {return data.size();}
-    std::vector<TGameCoord> data;
+    std::vector<TWayPoint> data;
     double min_distance_to(const TGameCoord &dest) const;
 };
 
@@ -97,13 +105,15 @@ public:
 
         auto i = t.find(";Group Size = ");
         if (i == std::string::npos) return;
+        std::string command_unit_name = t.substr(0, i - 1);
+        mylogger::logs(std::string("extracted command unit name: ") + command_unit_name);
         t = t.substr(i + 14, t.length() - i - 14 + 1);
         int groupsize = stoi(t);
 
         mylogger::log(QString("groupsize=%1").arg(groupsize));
 
         TGroup *gr = new TGroup(groupsize);
-        gr->load();
+        gr->load(command_unit_name);
         groups.push_back(gr);
     }
 

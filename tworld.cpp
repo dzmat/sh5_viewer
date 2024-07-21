@@ -194,7 +194,7 @@ bool TGroup::has_zero_speed()
     return false;
 }
 
-void TGroup::load()
+void TGroup::load(std::string command_unit_name)
 {
 
     TStringList ls;
@@ -221,13 +221,14 @@ void TGroup::load()
 void TWay::load()
 {
     TStringList ls;
+    int waypoint_index = 1;
     while (1) {
         int res = read_entity_list1(ls);
         if (res == MY_EOF) return;
         if (ls[0].find("Waypoint ") != std::string::npos) {
             TGameCoord t;
             coord_load(t, ls);
-            data.push_back(t);
+            data.push_back(TWayPoint{waypoint_index, t});
         }
         else {
             unread_entity_list1(ls);
