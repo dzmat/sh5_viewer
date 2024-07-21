@@ -126,10 +126,9 @@ int read_entity_list1(TStringList &list)
             break;
         }
     }
-    if (!flag) return MY_EOF;
+    if (!flag) return MY_EOF; //no section beginning found
     // read body
     int cnt = 0;
-    flag = false;
     while (my_read_line(s) != MY_EOF) {
         if (s.length() == 0) // end of body - empty string
             break;
