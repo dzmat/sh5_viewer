@@ -159,7 +159,7 @@ void coord_load(TGameCoord &c, const TStringList &ls)
 
 double line_min_distance(const TGameCoord &a, const TGameCoord &b, const TGameCoord &d)
 {
-    if ( (a - b).len_sqr() < 1e-6) return 1e99; // too short line, dont calculate.
+    if ( (a - b).len_sqr() < 1e-6) return (d - a).len(); // too short line, dont calculate projection.
     TGameCoord v = (b - a);
     double proj = (v * (d - a)) / v.len_sqr();
     if (proj < 0) return (d - a).len();
