@@ -111,11 +111,11 @@ void TmyQFrame::paintEvent(QPaintEvent *)
     TGameCoord b2 = i2g(my_coord(iw, 0));
     // Image1->Canvas->FillRect(Rect(0,0,iw,ih));
     draw_intercept_circle(&p);
-    for (TGroup *tg : world->groups) {
-        if (tg->filter_draw_group) {
-            if (tg->filter_draw_way)
-                draw_way(&p, tg->way, Qt::PenStyle::DashLine, 1, cl_Way);
-            for (TUnit &unit : tg->units) {
+    for (TGroup *group : world->groups) {
+        if (group->filter_draw_group) {
+            if (group->filter_draw_way)
+                draw_way(&p, group->way, Qt::PenStyle::DashLine, 1, cl_Way);
+            for (TUnit &unit : group->units) {
                 TGameCoord c = unit.coord;
                 if (( c.x > b1.x) && ( c.x < b2.x) &&
                     ( c.y > b1.y) && ( c.y < b2.y) )
