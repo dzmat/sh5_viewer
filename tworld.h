@@ -33,7 +33,8 @@ class TWay
 public:
     TWay()
     {
-    };
+    }
+
     ~TWay()
     {
     }
@@ -145,7 +146,7 @@ public:
     void apply_way_filter(double radius)
     {
         if (radius < 0.0) radius = 0.0;
-        radius*=1000;
+        radius *= 1000;
         auto &myCoords = wpWorld->my_boat.coord;
         for (TGroup *tg : wpWorld->groups) {
             tg->filter_draw_group = false;

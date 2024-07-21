@@ -82,13 +82,13 @@ bool check_header(std::string &instr, const std::string &type)
     int ilen = instr.length();
     int tlen = type.length();
     if (ilen < tlen + 2) return false;
-    if ((instr[0] != '[') || (instr[ilen-1] != ']'))
+    if ((instr[0] != '[') || (instr[ilen - 1] != ']'))
         return false;
     std::string t = instr.substr(1, ilen - 2);
     if (t.substr(0, tlen) != type)
         return false;
     std::string tt = t.substr(tlen, t.length() - tlen);
-    for(auto& c : tt)
+    for (auto &c : tt)
         if (!isdigit(c))
             return false;
     return true;
@@ -182,15 +182,15 @@ double TWay::min_distance_to(const TGameCoord &dest) const
 bool TGroup::has_type(int type)
 {
     if (type <= 0) return true;
-    for (auto& u : units)
+    for (auto &u : units)
         if (u.type == type) return true;
     return false;
 }
 
 bool TGroup::has_zero_speed()
 {
-    for (auto& u : units)
-            if (u.speed < 0.1) return true;
+    for (auto &u : units)
+        if (u.speed < 0.1) return true;
     return false;
 }
 
@@ -262,10 +262,9 @@ void TUnit::load(const TStringList &ls)
 
 void TUnit::dump(QTextEdit *d) const
 {
-    d->append(QString("Type=%1 class=%2 name=%3").arg(type).arg(s_class.c_str(),s_name.c_str()));
-    d->append(QString("Heading: %1 Speed: %2").arg(heading,0,'f').arg(speed,0,'f'));
-    d->append(QString("Long: %1 Lat: %2").arg(coord.x,0,'f').arg(coord.y,0,'f'));
-
+    d->append(QString("Type=%1 class=%2 name=%3").arg(type).arg(s_class.c_str(), s_name.c_str()));
+    d->append(QString("Heading: %1 Speed: %2").arg(heading, 0, 'f').arg(speed, 0, 'f'));
+    d->append(QString("Long: %1 Lat: %2").arg(coord.x, 0, 'f').arg(coord.y, 0, 'f'));
 }
 
 int TWorld::load_entity()
@@ -304,7 +303,7 @@ bool TWorld::load_file(const QString &fname)
         if (res == MY_EOF) break;
         cnt += res;;
     }
-    if (cnt==0)
+    if (cnt == 0)
         return false;
     mylogger::log(QString("loaded entities: %1").arg(cnt));
     mylogger::log(QString("loaded groups: %1").arg(groups.size()));
