@@ -43,16 +43,16 @@ void TmyQFrame::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width
     QPen pen;
     pen.setStyle(stt);
     pen.setWidth(width);
-    QPoint t1 = g2i_QPoint(w.data[0]);
+    QPoint t1 = g2i_QPoint(w.data[0].coord);
     for (size_t i = 1; i < w.size(); i++) {
-        QPoint t2 = g2i_QPoint(w.data[i]);
+        QPoint t2 = g2i_QPoint(w.data[i].coord);
         pen.setColor(cl);
         p->setPen(pen);
         p->drawLine(t1, t2);
         t1 = t2;
         pen.setColor(clBlack);
         p->setPen(pen);
-        p->drawText(t2, QString::number(i + 1));
+        p->drawText(t2, QString::number(w.data[i].waypoint_index));
     }
 }
 
