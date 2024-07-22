@@ -193,6 +193,8 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
         mylogger::logptr->clear();
         int cnt = 0;
         for (auto &tg : world->groups) {
+            int group_leader_speed = -1;
+            bool group_print_speed_flag = false;
             for (const TUnit &unit : tg->units) {
                 TGameCoord c = unit.coord;
                 if (( c.x > b1.x) && ( c.x < b2.x) &&
@@ -201,8 +203,12 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
                     unit.dump(mylogger::logptr);
                     mylogger::log("-------------");
                     cnt++;
+                    group_print_speed_flag = true;
                 }
+                if (unit.is_command) group_leader_speed = unit.speed;
             }
+            if (group_print_speed_flag)
+                mylogger::log(QString("Group speed = %1").arg(group_leader_speed));
         }
         for (auto s : (*summary))
             mylogger::logs(s);
