@@ -18,12 +18,12 @@ public:
         type = 0xDEADBEEF;
         is_command = false;
     }
-
-    void load(std::string command_unit_name);
-    void load(const TStringList &ls);
+    void load(std::string expected_command_unit_name);
+    void load(const TStringList &ls, const std::string expected_command_unit_name="$no command unit specified$");
     void dump(QTextEdit *d) const;
     double heading, speed;
     int type;
+    int next_waypoint;
     bool is_warship, is_german;
     TGameCoord coord;
     std::string s_name, s_class;
@@ -46,7 +46,7 @@ public:
         int waypoint_index;
         TGameCoord coord;
     } TWayPoint;
-
+    int next_way_point=0;
     void load();
     size_t size() const {return data.size();}
     std::vector<TWayPoint> data;
@@ -66,7 +66,7 @@ public:
     {
     }
 
-    void load();
+    void load_units(const std::string command_unit_name);
     std::vector<TUnit> units;
     TWay way;
     bool filter_draw_group;
@@ -105,7 +105,7 @@ public:
 
         auto i = t.find(";Group Size = ");
         if (i == std::string::npos) return;
-        std::string command_unit_name = t.substr(0, i - 1);
+        std::string command_unit_name = t.substr(0, i);
         mylogger::logs(std::string("extracted command unit name: ") + command_unit_name);
         t = t.substr(i + 14, t.length() - i - 14 + 1);
         int groupsize = stoi(t);
@@ -113,7 +113,7 @@ public:
         mylogger::log(QString("groupsize=%1").arg(groupsize));
 
         TGroup *gr = new TGroup(groupsize);
-        gr->load(command_unit_name);
+        gr->load_units(command_unit_name);
         groups.push_back(gr);
     }
 
