@@ -126,7 +126,7 @@ int read_entity_list1(TStringList &list)
             break;
         }
     }
-    if (!flag) return MY_EOF; //no section beginning found
+    if (!flag) return MY_EOF; // no section beginning found
     // read body
     int cnt = 0;
     while (my_read_line(s) != MY_EOF) {
@@ -259,7 +259,7 @@ void TUnit::load(const TStringList &ls)
     s_class = ls.getValue("Class");
     type = stoi(ls.getValue("Type"));
     coord_load(coord, ls);
-    if (( type <= 199) && ( type >= 100) ) is_warship = false; else is_warship = true;
+    if ((100 <= type) && (type <= 199)) is_warship = false; else is_warship = true;
     if (ls.getValue("Origin") == "German") is_german = true; else is_german = false;
     //    }catch(EConvertError& E){
     //        QMessageBox::warning(NULL,"Exception encountered","exception while loading Unit");
