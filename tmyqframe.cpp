@@ -210,7 +210,7 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
             if (group_print_speed_flag)
                 mylogger::log(QString("Group speed = %1").arg(group_leader_speed));
         }
-        for (auto s : (*summary))
+        for (auto &s : (*summary))
             mylogger::logs(s);
 
         mylogger::log("-------------");

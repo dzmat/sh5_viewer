@@ -193,7 +193,7 @@ bool TGroup::has_zero_speed()
     return false;
 }
 
-void TGroup::load(std::string command_unit_name)
+void TGroup::load_units(std::string command_unit_name)
 {
 
     TStringList ls;
@@ -205,7 +205,7 @@ void TGroup::load(std::string command_unit_name)
             way.load();
         }
         else {
-            units[i].load();
+            units[i].load(command_unit_name);
             i++;
             // try to load folloving waypoints
             read_entity_list1(ls);
@@ -242,22 +242,26 @@ void TWay::load()
     }
 }
 
-void TUnit::load()
+void TUnit::load(std::string expected_command_unit_name)
 {
     TStringList ls;
     int res = read_entity_list1(ls);
     if (res == MY_EOF) return;
-    load(ls);
+    load(ls, expected_command_unit_name);
 }
 
-void TUnit::load(const TStringList &ls)
+void TUnit::load(const TStringList &ls, const std::string expected_command_unit_name)
 {
     //    try{
     heading = read_double(ls, "Heading");
+
     speed = read_double(ls, "Speed");
     s_name = ls.getValue("Name");
     s_class = ls.getValue("Class");
     type = stoi(ls.getValue("Type"));
+    next_waypoint = stoi(ls.getValue("NextWP", "0"));
+    if (s_name == expected_command_unit_name)
+        is_command = true;
     coord_load(coord, ls);
     if ((100 <= type) && (type <= 199)) is_warship = false; else is_warship = true;
     if (ls.getValue("Origin") == "German") is_german = true; else is_german = false;

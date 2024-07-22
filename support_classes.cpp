@@ -8,7 +8,7 @@ const std::string TStringList::getValue(const std::string inkey, const std::stri
         if (pos == 0)           // found right at the beginning of the string
             return str.substr(key.length());
     }
-    return std::string();
+    return default_value;
 }
 
 void TStringList::setValue(const std::string &inkey, const std::string &val)
