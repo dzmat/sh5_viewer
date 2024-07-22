@@ -1,6 +1,6 @@
 #include "support_classes.h"
 
-const std::string TStringList::getValue(const std::string inkey) const
+const std::string TStringList::getValue(const std::string inkey, const std::string &default_value) const
 {
     auto key = inkey + "=";
     for (auto &str : *this) {
