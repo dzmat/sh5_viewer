@@ -26,8 +26,8 @@ CONFIG += c++11
 CONFIG(debug, debug|release): DEFINES += MDEBUG
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     coords.cpp \
     support_classes.cpp \
     tmyqframe.cpp \
@@ -35,7 +35,7 @@ SOURCES += \
     mylog.cpp
 
 HEADERS += \
-        mainwindow.h \
+    mainwindow.h \
     coords.h \
     support_classes.h \
     tmyqframe.h \
@@ -43,7 +43,7 @@ HEADERS += \
     mylog.h
 
 FORMS += \
-        mainwindow.ui
+    mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
