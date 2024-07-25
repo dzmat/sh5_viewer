@@ -18,6 +18,7 @@ public:
         type = 0xDEADBEEF;
         is_command = false;
     }
+
     void load(std::string expected_command_unit_name);
     void load(const TStringList &ls, const std::string expected_command_unit_name = "$no command unit specified$");
     void dump(QTextEdit *d) const;
@@ -130,21 +131,35 @@ public:
 class TFilter
 {
 public:
+    size_t min_group_size;
+    double radius;
+    int type;
     std::shared_ptr<TWorld> wpWorld;
-    TFilter(std::shared_ptr<TWorld> &wp)
-    {
-        wpWorld = wp;
-    }
+    bool draw_zero_speed_only;
 
-    void apply_group_filter(size_t min_group, bool zeroSpeedChecked = false)
+    TFilter(std::shared_ptr<TWorld> &wp)
+        : min_group_size(0)
+        , radius(50)
+        , type(0)
+        , wpWorld(wp)
+        , draw_zero_speed_only(false)
+    {}
+
+    void set_draw_zero_speed_only(bool x)   {draw_zero_speed_only = x;  apply_group_filter();}
+    void set_min_group_size(size_t x)       {min_group_size = x;        apply_group_filter();}
+    void set_type(int x)                    {type = x;                  apply_type_filter();}
+    void set_radius(double x)               {radius = x;                apply_way_filter();}
+
+private:
+    void apply_group_filter()
     {
         for (TGroup *tg : wpWorld->groups) {
             tg->filter_draw_group = true;
-            if (tg->size() < min_group) {
+            if (tg->size() < min_group_size) {
                 tg->filter_draw_group = false;
                 continue;// do not draw small groups
             }
-            if (zeroSpeedChecked) {
+            if (draw_zero_speed_only) {
                 if (!tg->has_zero_speed()) {
                     tg->filter_draw_group = false;
                     continue;
@@ -153,7 +168,7 @@ public:
         }
     }
 
-    void apply_way_filter(double radius)
+    void apply_way_filter()
     {
         if (radius < 0.0) radius = 0.0;
         double radius_in_metres = radius * 1000;
@@ -171,7 +186,7 @@ public:
         }
     }
 
-    void apply_type_filter(int type)
+    void apply_type_filter()
     {
         // apply_way_filter();//restore ways for all types
         for (TGroup *tg : wpWorld->groups) {
