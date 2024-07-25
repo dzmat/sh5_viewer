@@ -45,7 +45,6 @@ private:
     QString saveGameFileName;
 
     void load_world(const QString &fname);
-    void applyGroupFilter();
     void installNewWorld(std::shared_ptr<TWorld> iw);
 };
 
