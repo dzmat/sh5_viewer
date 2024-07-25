@@ -156,11 +156,9 @@ void MainWindow::on_e_flt_type_of_ship_textChanged(const QString &arg1)
     bool ok;
     int test = arg1.toInt(&ok);
     if (!ok)
-        filter->apply_type_filter(0);
-    //        apply_type_filter(0);//draw all types
+        filter->set_type(0);    // draw all types
     else
-        filter->apply_type_filter(test);
-    //            apply_type_filter(test);
+        filter->set_type(test);
     ui->Image1->update();
 }
 
