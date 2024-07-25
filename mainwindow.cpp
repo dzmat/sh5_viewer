@@ -126,21 +126,23 @@ void MainWindow::installNewWorld(std::shared_ptr<TWorld> iw)
 
 void MainWindow::on_spinMinGroup_valueChanged(int )
 {
-    applyGroupFilter();
+    filter->set_min_group_size(ui->spinMinGroup->value());
+    ui->Image1->update();
 }
 
 void MainWindow::on_chZeroSpeeds_stateChanged(int )
 {
-    applyGroupFilter();
+    filter->set_draw_zero_speed_only(ui->chZeroSpeeds->isChecked());
+    ui->Image1->update();
 }
 
 void MainWindow::on_eradius_of_intercept_textChanged(const QString &)
 {
     bool ok;
-    int test = ui->eradius_of_intercept->text().toInt(&ok);
+    int radius = ui->eradius_of_intercept->text().toInt(&ok);
     if (!ok) return; // wrong value at input? do nothing.
-    ui->Image1->interceptRadius = test;
-    filter->apply_way_filter(test);
+    // ui->Image1->interceptRadius = radius;
+    filter->set_radius(radius);
     ui->Image1->update();
 }
 
