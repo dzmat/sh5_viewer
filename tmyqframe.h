@@ -15,7 +15,7 @@ const QColor clRed = QColor(255, 0, 0);
 const QColor clGreen = QColor(0, 255, 0);
 const QColor clBlue = QColor(0, 0, 255);
 const QColor clGray = QColor(160, 160, 160);
-const QColor cl_Way= QColor(0, 150, 255);
+const QColor cl_Way = QColor(0, 150, 255);
 
 struct st_viewpoint
 {
@@ -80,7 +80,7 @@ public:
     double interceptRadius;
     st_viewpoint viewpoint;
     explicit TmyQFrame(QWidget *parent = nullptr);
-    void setWorld( std::shared_ptr<TWorld> &w) {world = w;update();}
+    void setWorld( std::shared_ptr<TWorld> &w) {world = w; update();}
 
     void toBoat() {viewpoint.pos = world->my_boat.coord;}
 
@@ -93,7 +93,7 @@ public:
 signals:
     void size_changed();
     void scale_changed();
-    void changed_polar_coords(double r,double head);
+    void changed_polar_coords(double r, double head);
 
 public slots:
     void onTimer();

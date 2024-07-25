@@ -19,7 +19,7 @@ public:
         is_command = false;
     }
     void load(std::string expected_command_unit_name);
-    void load(const TStringList &ls, const std::string expected_command_unit_name="$no command unit specified$");
+    void load(const TStringList &ls, const std::string expected_command_unit_name = "$no command unit specified$");
     void dump(QTextEdit *d) const;
     double heading, speed;
     int type;
@@ -46,7 +46,7 @@ public:
         int waypoint_index;
         TGameCoord coord;
     } TWayPoint;
-    int next_way_point=0;
+    int next_way_point = 0;
     void load();
     size_t size() const {return data.size();}
     std::vector<TWayPoint> data;
