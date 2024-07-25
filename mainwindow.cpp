@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 #ifdef MDEBUG
-const char* debugSavegameFilename= "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000002/Campaign-2020-08-30_1706/CampaignMission.mis";
+const char *debugSavegameFilename = "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000002/Campaign-2020-08-30_1706/CampaignMission.mis";
 #endif
 
 
@@ -78,8 +78,8 @@ void MainWindow::update_m()
 
 void MainWindow::update_polar_coords(double r, double head)
 {
-    ui->e_dist->setText(QString("%1").arg(r, 0,'f',3));
-    ui->e_head->setText(QString("%1").arg(head, 5,'f',1,'0'));
+    ui->e_dist->setText(QString("%1").arg(r, 0, 'f', 3));
+    ui->e_head->setText(QString("%1").arg(head, 5, 'f', 1, '0'));
 }
 
 // ---------------------------------------------------------------------------
