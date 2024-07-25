@@ -108,15 +108,6 @@ void MainWindow::on_pbToBoat_clicked()
     ui->Image1->update();
 }
 
-void MainWindow::applyGroupFilter()
-{
-    filter->apply_group_filter(
-        ui->spinMinGroup->value(),
-        ui->chZeroSpeeds->isChecked()
-        );
-    ui->Image1->update();
-}
-
 void MainWindow::installNewWorld(std::shared_ptr<TWorld> iw)
 {
     world = iw;
