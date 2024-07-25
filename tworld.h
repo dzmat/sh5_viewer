@@ -156,15 +156,15 @@ public:
     void apply_way_filter(double radius)
     {
         if (radius < 0.0) radius = 0.0;
-        radius *= 1000;
+        double radius_in_metres = radius * 1000;
         auto &myCoords = wpWorld->my_boat.coord;
         for (TGroup *tg : wpWorld->groups) {
             tg->filter_draw_group = false;
             tg->filter_draw_way = false;
-            if (radius == 0.0) continue;
+            if (radius_in_metres == 0.0) continue;
             if (tg->units[0].is_german) continue;
             double d = tg->way.min_distance_to(myCoords);
-            if (d <= radius) {
+            if (d <= radius_in_metres) {
                 tg->filter_draw_group = true;
                 tg->filter_draw_way = true;
             }
