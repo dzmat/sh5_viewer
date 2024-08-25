@@ -43,37 +43,5 @@ public:
     double x, y;
 };
 
-class my_coord
-{
-public:
-    my_coord()
-    {
-        x = y = 0;
-    }
-
-    explicit my_coord(const double ix, const double iy) : x(ix), y(iy){}
-    // explicit my_coord(const TGameCoord &rhs) : x(rhs.x),y(rhs.y)    {    }
-
-    const my_coord operator+(const my_coord &rhs) const
-    {
-        return my_coord(x + rhs.x, y + rhs.y);
-    };
-    const my_coord operator-(const my_coord &rhs) const
-    {
-        return my_coord(x - rhs.x, y - rhs.y);
-    };
-    const my_coord operator*(const double rhs) const;
-    double operator*(const my_coord &rhs) const;
-    const my_coord operator/(const double rhs) const;
-    double len_sqr() const
-    {
-        return x * x + y * y;
-    };
-    double len() const
-    {
-        return sqrt(len_sqr());
-    };
-    double x, y;
-};
 
 #endif // COORDS_H

@@ -25,27 +25,3 @@ void test2()
     c = a + b;
     b = ((a + b) / dd);
 }
-
-const my_coord my_coord::operator*(const double rhs) const
-{
-    return my_coord(x * rhs, y * rhs);
-}
-
-double my_coord::operator*(const my_coord &rhs) const
-{
-    return x * rhs.x + y * rhs.y;
-}
-
-const my_coord my_coord::operator/(const double rhs) const
-{
-    return my_coord(x / rhs, y / rhs);
-}
-
-void test()
-{
-    my_coord a(0, 1);
-    my_coord b(a);
-    my_coord c;
-    c = a + b;
-    b = ((a + b) / dd);
-}
