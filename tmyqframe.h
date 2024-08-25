@@ -26,7 +26,7 @@ struct st_viewpoint
 struct st_drag
 {
     TGameCoord gc;// game coordinates
-    int mX, mY;// mouse coordinates
+    QPointF mouse_position;// mouse coordinates
     bool started;
 };
 
@@ -79,8 +79,8 @@ public:
     void worldChanged(){selected_way = -1;}
     void setScale(double scale){viewpoint.m = scale;}
     double getScale(){return viewpoint.m;}
-    void drag_start(int X, int Y);
-    void drag_end(int X, int Y);
+    void drag_start(const QPointF &position);
+    void drag_end(const QPointF &pos);
 
 signals:
     void size_changed();

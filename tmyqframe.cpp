@@ -133,23 +133,19 @@ void TmyQFrame::paintEvent(QPaintEvent *)
 void TmyQFrame::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::MouseButton::LeftButton)
-        drag_start(event->x(), event->y());
+        // drag_start(event->x(), event->y());
+        drag_start(event->position());
 }
 
 void TmyQFrame::mouseMoveEvent(QMouseEvent *event)
 {
-    // void __fastcall TForm1::Image1MouseMove(TObject *Sender, TShiftState Shift,
-    //      int X, int Y)
 
-    int X = event->x();
-    int Y = event->y();
+    const QPointF pos = event->position();
 
-    //        e_tmp2->Text=QString().sprintf("IM %d %d", X,Y);
-    if (drag.started) {
-        drag.mX = X; drag.mY = Y;
-    }
+    if (drag.started)
+        drag.mouse_position = pos;
     // update indication of mouse coordinates
-    TGameCoord mouse_game_coords = i2g(my_coord(X, Y));
+    TGameCoord mouse_game_coords = QPointF_i2g(pos);
 
     //        e_coords->Text=QString().sprintf("Long %.1f  Lat %.1f", mouse_game_coords.x,mouse_game_coords.y);
 
@@ -178,17 +174,16 @@ void summary_add_unit(TStringList *sum, const TUnit &u)
 
 void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
 {
-    int X = event->x();
-    int Y = event->y();
+    const QPointF pos = event->position();
     if (event->button() == Qt::MouseButton::LeftButton) {
-        drag_end(X, Y);
+        drag_end(pos);
         update();
     }
     else if (event->button() == Qt::MouseButton::RightButton) {    // look up ship info
 
         TStringList *summary = new TStringList;
-        TGameCoord b1 = i2g(my_coord(X - 5, Y + 5));
-        TGameCoord b2 = i2g(my_coord(X + 5, Y - 5));
+        TGameCoord b1 = QPointF_i2g(pos + QPointF(-5, 5));
+        TGameCoord b2 = QPointF_i2g(pos + QPointF(5, -5));
         mylogger::logptr->clear();
         int cnt = 0;
         for (auto &tg : world->groups) {
@@ -218,8 +213,9 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
     }
     else {    // select waypoints to draw
         selected_way = -1;
-        TGameCoord b1 = i2g(my_coord(X - 5, Y + 5));
-        TGameCoord b2 = i2g(my_coord(X + 5, Y - 5));
+        TGameCoord b1 = QPointF_i2g(pos + QPointF(-5, 5));
+        TGameCoord b2 = QPointF_i2g(pos + QPointF(5, -5));
+
         mylogger::logptr->clear();
         int grpCount = world->groups.size();
         for (int i = 0; i < grpCount; ++i) {
@@ -250,15 +246,14 @@ void TmyQFrame::resizeEvent(QResizeEvent *)
     emit size_changed();
 }
 
-void TmyQFrame::drag_start(int X, int Y)
+void TmyQFrame::drag_start(const QPointF &position)
 {
-    drag.gc = i2g(my_coord(X, Y));
-    drag.mX = X;
-    drag.mY = Y;
+    drag.gc = QPointF_i2g(position);
+    drag.mouse_position = position;
     drag.started = true;
 }
 
-void TmyQFrame::drag_end(int X, int Y)
+void TmyQFrame::drag_end(const QPointF &pos)
 {
     TGameCoord t = QPointF_i2g(pos);
     viewpoint.pos += (drag.gc - t);
@@ -294,8 +289,8 @@ void TmyQFrame::wheelEvent(QWheelEvent *event)
 void TmyQFrame::onTimer()
 {
     if (drag.started) {
-        drag_end(drag.mX, drag.mY);
+        drag_end(drag.mouse_position);
         repaint();
-        drag_start(drag.mX, drag.mY);
+        drag_start(drag.mouse_position);
     }
 }
