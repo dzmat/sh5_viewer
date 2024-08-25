@@ -32,8 +32,7 @@ void TmyQFrame::draw_intercept_circle(QPainter *p)
     p->setBrush(brush);
     // draw
     double eR = interceptRadius * 1000 / (viewpoint.m);
-    my_coord a = g2i(world->my_boat.coord);
-    QPointF center(a.x, a.y);
+    QPointF center = g2i_QPoint(world->my_boat.coord);
     p->drawEllipse(center, eR, eR);
 }
 
@@ -43,9 +42,9 @@ void TmyQFrame::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width
     QPen pen;
     pen.setStyle(stt);
     pen.setWidth(width);
-    QPoint t1 = g2i_QPoint(w.data[0].coord);
+    QPointF t1 = g2i_QPoint(w.data[0].coord);
     for (size_t i = 1; i < w.size(); i++) {
-        QPoint t2 = g2i_QPoint(w.data[i].coord);
+        QPointF t2 = g2i_QPoint(w.data[i].coord);
         pen.setColor(cl);
         p->setPen(pen);
         p->drawLine(t1, t2);
@@ -91,7 +90,7 @@ void TmyQFrame::draw_arrow(QPainter *c, int x, int y, double len, double heading
 
 void TmyQFrame::draw_unit(QPainter *p, const TUnit *u, QColor cl = clBlack)
 {
-    my_coord c = g2i(u->coord);
+    QPointF c = g2i_QPoint(unit->coord);
 
     if (cl == clBlack) cl = get_color_by_type(u->type); ;
     if (u->is_german)
@@ -107,8 +106,8 @@ void TmyQFrame::paintEvent(QPaintEvent *)
     // TODO: rewrite painting code
     int iw = width();
     int ih = height();
-    TGameCoord b1 = i2g(my_coord(0, ih));
-    TGameCoord b2 = i2g(my_coord(iw, 0));
+    TGameCoord b1 = QPointF_i2g(QPointF(0, ih));
+    TGameCoord b2 = QPointF_i2g(QPointF(iw, 0));
     // Image1->Canvas->FillRect(Rect(0,0,iw,ih));
     draw_intercept_circle(&p);
     for (TGroup *group : world->groups) {
@@ -261,7 +260,7 @@ void TmyQFrame::drag_start(int X, int Y)
 
 void TmyQFrame::drag_end(int X, int Y)
 {
-    TGameCoord t = i2g(my_coord(X, Y));
+    TGameCoord t = QPointF_i2g(pos);
     viewpoint.pos += (drag.gc - t);
     drag.started = false;
 }
@@ -273,7 +272,7 @@ void TmyQFrame::wheelEvent(QWheelEvent *event)
     int numSteps = numDegrees.y() / 15;
     QPoint p = event->position().toPoint();
     // TGameCoord vc=viewpoint.pos;
-    TGameCoord b = i2g(my_coord(p.x(), p.y()));
+    TGameCoord b = QPointF_i2g(QPointF(p.x(), p.y()));
     TGameCoord d = viewpoint.pos - b;
     while (numSteps > 0) {
         viewpoint.m /= WheelStep;

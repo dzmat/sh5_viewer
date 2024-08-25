@@ -1,0 +1,22 @@
+{
+    "configurations": [
+        {
+            "name": "qt gcc",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Qt/Tools/mingw810_64/x86_64-w64-mingw32/include/**",
+                "C:/Qt/5.15.1/mingw81_64/include/** "
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "windows-gcc-x64",
+            "cppStandard": "gnu++17",
+            "cStandard": "gnu17"
+
+        }
+    ],
+    "version": 4
+}

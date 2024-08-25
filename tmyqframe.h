@@ -38,27 +38,19 @@ class TmyQFrame : public QFrame
     int selected_way = -1;
     QTimer *timer;
 
-    my_coord g2i(const TGameCoord &c) const
+    QPointF g2i_QPoint(const TGameCoord &c) const
     {
-        return my_coord(
+        return QPointF(
             (c.x - viewpoint.pos.x) / viewpoint.m + viewpoint.o_x,
             (viewpoint.pos.y - c.y) / viewpoint.m + viewpoint.o_y
             );
     }
 
-    QPoint g2i_QPoint(const TGameCoord &c) const
-    {
-        return QPoint(
-            (c.x - viewpoint.pos.x) / viewpoint.m + viewpoint.o_x,
-            (viewpoint.pos.y - c.y) / viewpoint.m + viewpoint.o_y
-            );
-    }
-
-    TGameCoord i2g(const my_coord &c) const
+    TGameCoord QPointF_i2g(const QPointF &c) const
     {
         return TGameCoord(
-            (c.x - viewpoint.o_x) * viewpoint.m + viewpoint.pos.x,
-            (viewpoint.o_y - c.y) * viewpoint.m + viewpoint.pos.y
+            (c.x() - viewpoint.o_x) * viewpoint.m + viewpoint.pos.x,
+            (viewpoint.o_y - c.y()) * viewpoint.m + viewpoint.pos.y
             );
     }
 
