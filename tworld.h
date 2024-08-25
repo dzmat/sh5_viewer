@@ -145,57 +145,41 @@ public:
         , draw_zero_speed_only(false)
     {}
 
-    void set_draw_zero_speed_only(bool x)   {draw_zero_speed_only = x;  apply_group_filter();}
-    void set_min_group_size(size_t x)       {min_group_size = x;        apply_group_filter();}
-    void set_type(int x)                    {type = x;                  apply_type_filter();}
-    void set_radius(double x)               {radius = x;                apply_way_filter();}
+    void set_draw_zero_speed_only(bool x)   {draw_zero_speed_only = x;  apply_filter();}
+    void set_min_group_size(size_t x)       {min_group_size = x;        apply_filter();}
+    void set_type(int x)                    {type = x;                  apply_filter();}
+    void set_radius(double x)               {radius = x;                apply_filter();}
 
 private:
-    void apply_group_filter()
-    {
-        for (TGroup *tg : wpWorld->groups) {
-            tg->filter_draw_group = true;
-            if (tg->size() < min_group_size) {
-                tg->filter_draw_group = false;
-                continue;// do not draw small groups
-            }
-            if (draw_zero_speed_only) {
-                if (!tg->has_zero_speed()) {
-                    tg->filter_draw_group = false;
-                    continue;
-                }
-            }
-        }
-    }
-
-    void apply_way_filter()
+    void apply_filter()
     {
         if (radius < 0.0) radius = 0.0;
-        double radius_in_metres = radius * 1000;
-        auto &myCoords = wpWorld->my_boat.coord;
-        for (TGroup *tg : wpWorld->groups) {
-            tg->filter_draw_group = false;
-            tg->filter_draw_way = false;
-            if (radius_in_metres == 0.0) continue;
-            if (tg->units[0].is_german) continue;
-            double d = tg->way.min_distance_to(myCoords);
-            if (d <= radius_in_metres) {
-                tg->filter_draw_group = true;
-                tg->filter_draw_way = true;
+        const double radius_in_metres = radius * 1000;
+        const auto &myCoords = wpWorld->my_boat.coord;
+
+        if (radius_in_metres == 0.0) {
+            for (TGroup *tg : wpWorld->groups) {
+                tg->filter_draw_group = tg->size() >= min_group_size
+                                        && (!draw_zero_speed_only || tg->has_zero_speed());
+                tg->filter_draw_way = false;
             }
         }
-    }
-
-    void apply_type_filter()
-    {
-        // apply_way_filter();//restore ways for all types
-        for (TGroup *tg : wpWorld->groups) {
-            if (tg->has_type(type)) {
-                tg->filter_draw_group = true;
+        else {
+            for (TGroup *tg : wpWorld->groups) {
+                tg->filter_draw_group = !tg->units[0].is_german && tg->way.min_distance_to(myCoords) <= radius_in_metres;
+                tg->filter_draw_way = tg->filter_draw_group;
             }
-            else {
-                tg->filter_draw_group = false;
-                tg->filter_draw_way = false; // don't draw useless ways
+        }
+        // apply_way_filter();//restore ways for all types
+        if (type != 0) {
+            for (TGroup *tg : wpWorld->groups) {
+                if (tg->has_type(type)) {
+                    tg->filter_draw_group = true;
+                }
+                else {
+                    tg->filter_draw_group = false;
+                    tg->filter_draw_way = false; // don't draw useless ways
+                }
             }
         }
     }

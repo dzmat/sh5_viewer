@@ -130,9 +130,15 @@ void MainWindow::on_chZeroSpeeds_stateChanged(int )
 void MainWindow::on_eradius_of_intercept_textChanged(const QString &)
 {
     bool ok;
-    int radius = ui->eradius_of_intercept->text().toInt(&ok);
-    if (!ok) return; // wrong value at input? do nothing.
-    // ui->Image1->interceptRadius = radius;
+    QString txt = ui->eradius_of_intercept->text();
+    int radius = txt.toInt(&ok);
+    if (!ok) {
+        if (txt.isEmpty())
+            radius = 0;
+        else
+            return; // wrong value at input? do nothing.
+    }
+    ui->Image1->interceptRadius = radius;
     filter->set_radius(radius);
     ui->Image1->update();
 }
