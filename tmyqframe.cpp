@@ -66,18 +66,14 @@ QColor TmyQFrame::get_color_by_type(int type)
 }
 
 QPointF calc_line_end_by_heading(const QPointF &beg, const double len, const double heading)
-void TmyQFrame::draw_arrow(QPainter *c, int x, int y, double len, double heading, QColor col, Qt::PenStyle style, int width)
 {
     double a = heading * M_PI / 180.0;
     return QPointF(sin(a), cos(a)) * len + beg;
 }
 
-    double const h_len = 10.0;// length of arrow head parts.
-    int ex, ey; double a;
-    int tx, ty;
-    len += 10;
-    a = heading * M_PI / 180.0;
-    ex = x + len * sin(a); ey = y - len * cos(a);
+void TmyQFrame::draw_arrow(QPainter *c, const QPointF &begin, double len, double heading, QColor col, Qt::PenStyle style, int width)
+{
+    double const h_head_part_len = 10.0;    // length of arrow head parts.
     QPointF end = calc_line_end_by_heading(begin, len, heading);
     QPointF tip1 = calc_line_end_by_heading(end, h_head_part_len, heading + 160);
     QPointF tip2 = calc_line_end_by_heading(end, h_head_part_len, heading + 200);
@@ -85,26 +81,24 @@ void TmyQFrame::draw_arrow(QPainter *c, int x, int y, double len, double heading
     pen.setStyle(style);
     pen.setWidth(width);
     c->setPen(pen);
-    c->drawLine(x, y, ex, ey);
+    // draw body
+    c->drawLine(begin, end);
     // arrow head first part
-    a = (heading + 160.0) * M_PI / 180.0;
-    tx = ex + h_len * sin(a); ty = ey - h_len * cos(a);
-    c->drawLine(ex, ey, tx, ty);
+    c->drawLine(end, tip1);
     // arrow head second part
-    a = (heading + 200.0) * M_PI / 180.0;
-    tx = ex + h_len * sin(a); ty = ey - h_len * cos(a);
-    c->drawLine(ex, ey, tx, ty);
+    c->drawLine(end, tip2);
 }
 
-void TmyQFrame::draw_unit(QPainter *p, const TUnit *u, QColor cl = clBlack)
+void TmyQFrame::draw_unit(QPainter *p, const TUnit *unit, QColor color = clBlack)
 {
     QPointF c = g2i_QPoint(unit->coord);
 
-    if (cl == clBlack) cl = get_color_by_type(u->type); ;
-    if (u->is_german)
-        draw_arrow(p, c.x, c.y, u->speed * 2, u->heading, cl, Qt::PenStyle::DashLine, 1);
+    if (color == clBlack) color = get_color_by_type(unit->type);
+    double arrow_len = unit->speed * 2 + 10;
+    if (unit->is_german)
+        draw_arrow(p, c, arrow_len, unit->heading, color, Qt::PenStyle::DashLine, 1);
     else
-        draw_arrow(p, c.x, c.y, u->speed * 2, u->heading, cl, Qt::PenStyle::SolidLine, 2);
+        draw_arrow(p, c, arrow_len, unit->heading, color, Qt::PenStyle::SolidLine, 2);
 }
 
 void TmyQFrame::paintEvent(QPaintEvent *)

@@ -57,7 +57,7 @@ class TmyQFrame : public QFrame
     void draw_intercept_circle(QPainter *p);
     void draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width, QColor cl);
     QColor get_color_by_type(int type);
-    void draw_arrow(QPainter *c, int x, int y, double len, double heading, QColor col, Qt::PenStyle style, int width);
+    void draw_arrow(QPainter *c, const QPointF &begin, double len, double heading, QColor col, Qt::PenStyle style, int width);
     void draw_unit(QPainter *p, const TUnit *u, QColor cl);
 
 protected:
