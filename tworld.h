@@ -7,6 +7,7 @@
 #include "coords.h"
 #include "support_classes.h"
 #include "mylog.h"
+#include "tway.h"
 
 class TUnit
 {
@@ -29,29 +30,6 @@ public:
     TGameCoord coord;
     std::string s_name, s_class;
     bool is_command;
-};
-
-class TWay
-{
-public:
-    TWay()
-    {
-    }
-
-    ~TWay()
-    {
-    }
-
-    typedef struct
-    {
-        int waypoint_index;
-        TGameCoord coord;
-    } TWayPoint;
-    int next_way_point = 0;
-    void load();
-    size_t size() const {return data.size();}
-    std::vector<TWayPoint> data;
-    double min_distance_to(const TGameCoord &dest) const;
 };
 
 class TGroup

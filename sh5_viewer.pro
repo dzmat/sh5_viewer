@@ -32,6 +32,7 @@ SOURCES += \
     read_functions.cpp \
     support_classes.cpp \
     tmyqframe.cpp \
+    tway.cpp \
     tworld.cpp \
     mylog.cpp
 
@@ -41,6 +42,7 @@ HEADERS += \
     read_functions.h \
     support_classes.h \
     tmyqframe.h \
+    tway.h \
     tworld.h \
     mylog.h
 

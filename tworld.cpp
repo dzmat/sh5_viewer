@@ -11,17 +11,6 @@ TWorld::TWorld()
 {
 }
 
-double TWay::min_distance_to(const TGameCoord &dest) const
-{
-    size_t size = data.size();
-    double min_r = 1e99;
-    for (size_t i = 0; i < size - 1; i++) {
-        double r = line_min_distance(data[i].coord, data[i + 1].coord, dest);
-        if (r < min_r) min_r = r;
-    }
-    return min_r;
-}
-
 bool TGroup::has_type(int type)
 {
     if (type <= 0) return true;
@@ -64,25 +53,6 @@ void TGroup::load_units(std::string command_unit_name)
         if (unit.is_command)
             way.next_way_point = unit.next_waypoint;
         break;
-    }
-}
-
-void TWay::load()
-{
-    TStringList ls;
-    int waypoint_index = 1;
-    while (1) {
-        int res = read_entity_list1(ls);
-        if (res == MY_EOF) return;
-        if (ls[0].find("Waypoint ") != std::string::npos) {
-            TGameCoord t;
-            coord_load(t, ls);
-            data.push_back(TWayPoint{waypoint_index++, t});
-        }
-        else {
-            unread_entity_list1(ls);
-            break;// end of waypoints list
-        }
     }
 }
 
