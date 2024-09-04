@@ -29,6 +29,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     coords.cpp \
+    read_functions.cpp \
     support_classes.cpp \
     tmyqframe.cpp \
     tworld.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
 HEADERS += \
     mainwindow.h \
     coords.h \
+    read_functions.h \
     support_classes.h \
     tmyqframe.h \
     tworld.h \
