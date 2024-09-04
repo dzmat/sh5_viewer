@@ -11,16 +11,6 @@ TWorld::TWorld()
 {
 }
 
-double line_min_distance(const TGameCoord &a, const TGameCoord &b, const TGameCoord &d)
-{
-    if ( (a - b).len_sqr() < 1e-6) return (d - a).len(); // too short line, dont calculate projection.
-    TGameCoord v = (b - a);
-    double proj = (v * (d - a)) / v.len_sqr();
-    if (proj < 0) return (d - a).len();
-    if (proj > 1) return (d - b).len();
-    return (a + v * proj - d).len();// nearest point is somewhere in the line cut
-}
-
 double TWay::min_distance_to(const TGameCoord &dest) const
 {
     size_t size = data.size();

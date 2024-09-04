@@ -43,5 +43,6 @@ public:
     double x, y;
 };
 
+double line_min_distance(const TGameCoord &a, const TGameCoord &b, const TGameCoord &d);
 
 #endif // COORDS_H
