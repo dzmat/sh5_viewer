@@ -6,15 +6,15 @@ namespace mylogger
 
     QTextEdit *logptr;
 
-/**
- * Appends a message to the log text edit widget.
- *
- * @param msg The message to be appended to the log.
- *
- * @return void
- *
- * @throws None
- */
+    /**
+     * Appends a message to the log text edit widget.
+     *
+     * @param msg The message to be appended to the log.
+     *
+     * @return void
+     *
+     * @throws None
+     */
     void log(const QString &msg)
     {
         logptr->append(msg);
@@ -26,5 +26,3 @@ namespace mylogger
         log(s);
     }
 } // namespace mylogger
-
-
