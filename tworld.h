@@ -123,6 +123,8 @@ public:
         , type(0)
         , wpWorld(wp)
         , draw_zero_speed_only(false)
+        , days_before(0.0)
+        , days_after(2.0)
     {}
 
     void set_draw_zero_speed_only(bool x)   {draw_zero_speed_only = x;  apply_filter();}
