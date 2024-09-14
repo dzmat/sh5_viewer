@@ -6,10 +6,10 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 
-//#include "coords.h"
-//#include "support_classes.h"
+// #include "coords.h"
+// #include "support_classes.h"
 #include "tworld.h"
-//#include "tmyqframe.h"
+// #include "tmyqframe.h"
 
 namespace Ui
 {
@@ -37,6 +37,10 @@ private slots:
     void update_polar_coords(double r, double head);
     void on_e_coef_textChanged(const QString &arg1);
     void on_pbReloadFile_clicked();
+
+    void on_daysBeforeLineEdit_textChanged(const QString &arg1);
+
+    void on_daysAfterLineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

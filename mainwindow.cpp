@@ -182,3 +182,23 @@ void MainWindow::on_pbReloadFile_clicked()
 {
     load_world(saveGameFileName);
 }
+
+void MainWindow::on_daysBeforeLineEdit_textChanged(const QString &arg1)
+{
+    bool ok;
+    double test = arg1.toDouble(&ok);
+    if (ok) {
+        filter->set_days_before(test);    // update filter
+        ui->Image1->update();
+    }
+}
+
+void MainWindow::on_daysAfterLineEdit_textChanged(const QString &arg1)
+{
+    bool ok;
+    double test = arg1.toDouble(&ok);
+    if (ok) {
+        filter->set_days_after(test);    // update filter
+        ui->Image1->update();
+    }
+}

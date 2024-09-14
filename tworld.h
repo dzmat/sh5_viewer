@@ -114,6 +114,8 @@ public:
     int type;
     std::shared_ptr<TWorld> wpWorld;
     bool draw_zero_speed_only;
+    double days_before;
+    double days_after;
 
     TFilter(std::shared_ptr<TWorld> &wp)
         : min_group_size(0)
@@ -127,6 +129,8 @@ public:
     void set_min_group_size(size_t x)       {min_group_size = x;        apply_filter();}
     void set_type(int x)                    {type = x;                  apply_filter();}
     void set_radius(double x)               {radius = x;                apply_filter();}
+    void set_days_before(double x)          {days_before = x;           apply_filter();}
+    void set_days_after(double x)           {days_after = x;            apply_filter();}
 
 private:
     void apply_filter()
