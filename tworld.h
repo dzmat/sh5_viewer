@@ -112,7 +112,7 @@ public:
     size_t min_group_size;
     double radius;
     int type;
-    std::shared_ptr<TWorld> wpWorld;
+    std::shared_ptr<TWorld> pWorld;
     bool draw_zero_speed_only;
     double days_before;
     double days_after;
@@ -121,7 +121,7 @@ public:
         : min_group_size(0)
         , radius(50)
         , type(0)
-        , wpWorld(wp)
+        , pWorld(wp)
         , draw_zero_speed_only(false)
         , days_before(0.0)
         , days_after(2.0)
@@ -139,24 +139,24 @@ private:
     {
         if (radius < 0.0) radius = 0.0;
         const double radius_in_metres = radius * 1000;
-        const auto &myCoords = wpWorld->my_boat.coord;
+        const auto &myCoords = pWorld->my_boat.coord;
 
         if (radius_in_metres == 0.0) {
-            for (TGroup *tg : wpWorld->groups) {
+            for (TGroup *tg : pWorld->groups) {
                 tg->filter_draw_group = tg->size() >= min_group_size
                                         && (!draw_zero_speed_only || tg->has_zero_speed());
                 tg->filter_draw_way = false;
             }
         }
         else {
-            for (TGroup *tg : wpWorld->groups) {
+            for (TGroup *tg : pWorld->groups) {
                 tg->filter_draw_group = !tg->units[0].is_german && tg->way.min_distance_to(myCoords) <= radius_in_metres;
                 tg->filter_draw_way = tg->filter_draw_group;
             }
         }
         // apply_way_filter();//restore ways for all types
         if (type != 0) {
-            for (TGroup *tg : wpWorld->groups) {
+            for (TGroup *tg : pWorld->groups) {
                 if (tg->has_type(type)) {
                     tg->filter_draw_group = true;
                 }
