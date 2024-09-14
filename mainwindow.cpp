@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     mylogger::logptr = ui->textEdit_Memo1;// very dangerous exporting, dirty and quick
     mylogger::log("Mainwindow constructor started");
+    filter = std::make_shared<TFilter>();
     //    DecimalSeparator='.';
 
     // world setup
@@ -112,7 +113,7 @@ void MainWindow::installNewWorld(std::shared_ptr<TWorld> iw)
 {
     world = iw;
     ui->Image1->setWorld(world);
-    filter = std::make_shared<TFilter>(world);
+    filter->installNewWorld(iw);
 }
 
 void MainWindow::on_spinMinGroup_valueChanged(int )

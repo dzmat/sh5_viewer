@@ -117,15 +117,20 @@ public:
     double days_before;
     double days_after;
 
-    TFilter(std::shared_ptr<TWorld> &wp)
+    TFilter()
         : min_group_size(0)
         , radius(50)
         , type(0)
-        , pWorld(wp)
+        , pWorld(nullptr)
         , draw_zero_speed_only(false)
         , days_before(0.0)
         , days_after(2.0)
     {}
+    void installNewWorld(std::shared_ptr<TWorld> &wp)
+    {
+        pWorld = wp;
+        apply_filter();
+    }
 
     void set_draw_zero_speed_only(bool x)   {draw_zero_speed_only = x;  apply_filter();}
     void set_min_group_size(size_t x)       {min_group_size = x;        apply_filter();}
