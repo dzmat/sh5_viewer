@@ -6,7 +6,6 @@
 
 #include "coords.h"
 #include "support_classes.h"
-#include "mylog.h"
 #include "tway.h"
 
 class TUnit

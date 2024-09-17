@@ -5,6 +5,7 @@
 #include <winbase.h>
 #include <windows.h>
 #include "read_functions.h"
+#include "mylog.h"
 
 
 TWorld::TWorld()
