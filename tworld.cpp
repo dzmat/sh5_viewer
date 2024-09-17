@@ -49,11 +49,40 @@ void TGroup::load_units(std::string command_unit_name)
                 way.load();
         }
     }
-    // extract next waypoint info
+    // extract command unit pointer for quick access
+    bool command_unit_found = false;
     for (TUnit &unit : units) {
-        if (unit.is_command)
-            way.next_way_point = unit.next_waypoint;
-        break;
+        if (unit.is_command) {
+            command_unit = &unit;
+            command_unit_found = true;
+            break;
+        }
+    }
+    assert(command_unit_found);
+}
+
+// in meters per day; use fmax to evade division by zero
+// by setting speed to be at least 0.1 knot
+// convert speed from knots to meters per day
+inline double speed_scaler(double speed)
+{
+    const double scale_factor = 24 * 1852;
+    return fmax(speed, 0.1) * scale_factor;
+}
+
+void TGroup::calculate_arrival_time()
+{
+    size_t nwpi = command_unit->next_waypoint; // zero based next way point index
+    double dst = (command_unit->coord - way.data[nwpi].coord).len();
+    way.data[nwpi].time_of_arrival = dst / speed_scaler(command_unit->speed);
+    assert(0 <= nwpi && nwpi < way.data.size());
+    for (size_t i = nwpi, j = nwpi + 1; j < way.data.size(); ++i, ++j) {
+        double td = (way.data[j].coord - way.data[i].coord).len() / speed_scaler(way.data[i].speed);
+        way.data[j].time_of_arrival = way.data[i].time_of_arrival + td;
+    }
+    for (int i = nwpi - 1, j = nwpi; i >= 0; --i, --j) {
+        double td = (way.data[j].coord - way.data[i].coord).len() / speed_scaler(way.data[i].speed);
+        way.data[i].time_of_arrival = way.data[j].time_of_arrival - td;
     }
 }
 
@@ -148,5 +177,6 @@ void TWorld::load_group(TStringList &ls)
 
     TGroup *gr = new TGroup(groupsize);
     gr->load_units(command_unit_name);
+    gr->calculate_arrival_time();
     groups.push_back(gr);
 }

@@ -26,7 +26,6 @@ public:
     {
     }
 
-    int next_way_point = 0;
     void load();
     double min_distance_to(const TGameCoord &dest) const;
 };

@@ -35,12 +35,14 @@ class TGroup
 {
 public:
     std::vector<TUnit> units;
+    TUnit *command_unit; // not owning pointer
     TWay way;
     bool filter_draw_group;
     bool filter_draw_way;
 
     TGroup(int sz)
         : units(sz)
+        , command_unit(nullptr)
         , filter_draw_group(true)
         , filter_draw_way(false)
     {
@@ -50,6 +52,7 @@ public:
     }
 
     void load_units(const std::string command_unit_name);
+    void calculate_arrival_time();
     bool has_zero_speed();
     bool has_type(int type);
     size_t size(){return units.size();}
