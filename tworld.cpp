@@ -77,7 +77,7 @@ void TUnit::parse(const TStringList &ls, const std::string expected_command_unit
     next_waypoint = stoi(ls.getValue("NextWP", "0"));
     if (s_name == expected_command_unit_name)
         is_command = true;
-    coord_load(coord, ls);
+    coord_load(ls, coord);
     if ((100 <= type) && (type <= 199)) is_warship = false; else is_warship = true;
     if (ls.getValue("Origin") == "German") is_german = true; else is_german = false;
     //    }catch(EConvertError& E){

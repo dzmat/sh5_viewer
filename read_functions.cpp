@@ -161,7 +161,7 @@ double read_double(const TStringList &ls, const std::string &key)
     return stod(t);
 }
 
-void coord_load(TGameCoord &c, const TStringList &ls)
+void coord_load(const TStringList &ls, TGameCoord &c)
 {
     c.x = read_double(ls, "Long");
     c.y = read_double(ls, "Lat");

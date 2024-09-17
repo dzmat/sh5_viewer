@@ -11,7 +11,7 @@ void TWay::load()
         if (res == MY_EOF) return;
         if (ls[0].find("Waypoint ") != std::string::npos) {
             TGameCoord t;
-            coord_load(t, ls);
+            coord_load(ls, t);
             double speed = read_double(ls, "Speed");
             data.push_back(TWayPoint{waypoint_index++, t, speed, -100});
         }

@@ -21,5 +21,5 @@ bool check_for_my_unit(const TStringList &ls);
 int read_entity_list1(TStringList &list);
 bool check_for_group(const TStringList &ls);
 double read_double(const TStringList &ls, const std::string &key);
-void coord_load(TGameCoord &c, const TStringList &ls);
+void coord_load(const TStringList &ls, TGameCoord &c);
 #endif // READ_FUNCTIONS_H
