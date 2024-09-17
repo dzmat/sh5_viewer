@@ -128,3 +128,25 @@ bool TWorld::load_file(const QString &fname)
     close_read();
     return true;
 }
+
+void TWorld::load_group(TStringList &ls)
+{
+    std::string t = ls.getValue("CommandUnitName");
+
+    mylogger::logs(t);
+
+    auto i = t.find(";Group Size = ");
+    if (i == std::string::npos)
+        return;
+    std::string command_unit_name = t.substr(0, i);
+    mylogger::logs(std::string("extracted command unit name: ")
+                   + command_unit_name);
+    t = t.substr(i + 14, t.length() - i - 14 + 1);
+    int groupsize = stoi(t);
+
+    mylogger::log(QString("groupsize=%1").arg(groupsize));
+
+    TGroup *gr = new TGroup(groupsize);
+    gr->load_units(command_unit_name);
+    groups.push_back(gr);
+}
