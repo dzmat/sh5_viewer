@@ -14,6 +14,7 @@ public:
     {
         int waypoint_index;
         TGameCoord coord;
+        double speed;
         double time_of_arrival = -100;
     } TWayPoint;
     std::vector<TWayPoint> data;
