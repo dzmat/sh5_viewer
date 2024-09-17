@@ -62,10 +62,10 @@ void TUnit::load(std::string expected_command_unit_name)
     TStringList ls;
     int res = read_entity_list1(ls);
     if (res == MY_EOF) return;
-    load(ls, expected_command_unit_name);
+    parse(ls, expected_command_unit_name);
 }
 
-void TUnit::load(const TStringList &ls, const std::string expected_command_unit_name)
+void TUnit::parse(const TStringList &ls, const std::string expected_command_unit_name)
 {
     //    try{
     heading = read_double(ls, "Heading");

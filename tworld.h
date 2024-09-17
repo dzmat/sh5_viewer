@@ -20,7 +20,7 @@ public:
     }
 
     void load(std::string expected_command_unit_name);
-    void load(const TStringList &ls, const std::string expected_command_unit_name = "$no command unit specified$");
+    void parse(const TStringList &ls, const std::string expected_command_unit_name = "$no command unit specified$");
     void dump(QTextEdit *d) const;
     double heading, speed;
     int type;
@@ -79,7 +79,7 @@ public:
 
     void load_my_unit(const TStringList &ls)
     {
-        my_boat.load(ls);
+        my_boat.parse(ls);
         my_boat.is_german = false;// to prevent dash drawing
     }
 
