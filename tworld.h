@@ -34,21 +34,22 @@ public:
 class TGroup
 {
 public:
+    std::vector<TUnit> units;
+    TWay way;
+    bool filter_draw_group;
+    bool filter_draw_way;
+
     TGroup(int sz)
         : units(sz)
+        , filter_draw_group(true)
+        , filter_draw_way(false)
     {
-        filter_draw_group = true;
-        filter_draw_way = false;
     };
     ~TGroup()
     {
     }
 
     void load_units(const std::string command_unit_name);
-    std::vector<TUnit> units;
-    TWay way;
-    bool filter_draw_group;
-    bool filter_draw_way;
     bool has_zero_speed();
     bool has_type(int type);
     size_t size(){return units.size();}
