@@ -38,12 +38,12 @@ void TmyQFrame::draw_intercept_circle(QPainter *p)
 
 void TmyQFrame::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width, QColor cl)
 {
-    if (w.size() < 2) return; // nothing to draw;
+    if (w.data.size() < 2) return; // nothing to draw;
     QPen pen;
     pen.setStyle(stt);
     pen.setWidth(width);
     QPointF t1 = g2i_QPoint(w.data[0].coord);
-    for (size_t i = 1; i < w.size(); i++) {
+    for (size_t i = 1; i < w.data.size(); i++) {
         QPointF t2 = g2i_QPoint(w.data[i].coord);
         pen.setColor(cl);
         p->setPen(pen);
@@ -231,7 +231,7 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
         }
         if (selected_way != -1) {
             mylogger::log(QString("%1 group way selected").arg(selected_way));
-            mylogger::log(QString("way size = %1").arg(world->groups[selected_way]->way.size()));
+            mylogger::log(QString("way size = %1").arg(world->groups[selected_way]->way.data.size()));
             update();
         }
         else {
