@@ -67,7 +67,7 @@ QColor TmyQFrame::get_color_by_type(int type)
 
 QPointF calc_line_end_by_heading(const QPointF &beg, const double len, const double heading)
 {
-    double a = heading * M_PI / 180.0;
+    double a = (180 - heading) * M_PI / 180.0;
     return QPointF(sin(a), cos(a)) * len + beg;
 }
 
