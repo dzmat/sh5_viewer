@@ -1,8 +1,8 @@
 #include "read_functions.h"
 #include "mylog.h"
 #include <windows.h>
+#include <winnt.h>
 
-typedef void *HANDLE;
 HANDLE file_handle;
 
 const int MY_BUF_SZ = 1024;
