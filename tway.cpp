@@ -33,7 +33,7 @@ double TWay::min_distance_to(const TGameCoord &dest) const
     return min_r;
 }
 
-TWay TWay::restricted_by_days(double beg, double end)
+TWay TWay::extract_by_days(double beg, double end)
 {
     size_t SZ = data.size();
     TWay res;
