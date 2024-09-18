@@ -41,6 +41,7 @@ HEADERS += \
     coords.h \
     read_functions.h \
     support_classes.h \
+    tfilter.h \
     tmyqframe.h \
     tway.h \
     tworld.h \

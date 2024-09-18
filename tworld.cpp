@@ -36,7 +36,7 @@ void TGroup::load_units(std::string command_unit_name)
         std::string head = ls[0];
         unread_entity_list1(ls);
         if (head.find("Waypoint") != std::string::npos) {
-            way.load();
+            way_full.load();
         }
         else {
             units[i].load(command_unit_name);
@@ -46,7 +46,7 @@ void TGroup::load_units(std::string command_unit_name)
             std::string head = ls[0];
             unread_entity_list1(ls);
             if (head.find("Waypoint") != std::string::npos)
-                way.load();
+                way_full.load();
         }
     }
     // extract command unit pointer for quick access
@@ -73,16 +73,15 @@ inline double speed_scaler(double speed)
 void TGroup::calculate_arrival_time()
 {
     size_t nwpi = command_unit->next_waypoint; // zero based next way point index
-    double dst = (command_unit->coord - way.data[nwpi].coord).len();
-    way.data[nwpi].time_of_arrival = dst / speed_scaler(command_unit->speed);
-    assert(0 <= nwpi && nwpi < way.data.size());
-    for (size_t i = nwpi, j = nwpi + 1; j < way.data.size(); ++i, ++j) {
-        double td = (way.data[j].coord - way.data[i].coord).len() / speed_scaler(way.data[i].speed);
-        way.data[j].time_of_arrival = way.data[i].time_of_arrival + td;
+    auto &wdt = way_full.data;
+    wdt[nwpi].time_of_arrival = (command_unit->coord - wdt[nwpi].coord).len() / speed_scaler(command_unit->speed);
+    for (size_t i = nwpi, j = nwpi + 1; j < wdt.size(); ++i, ++j) {
+        double td = (wdt[j].coord - wdt[i].coord).len() / speed_scaler(wdt[i].speed);
+        wdt[j].time_of_arrival = wdt[i].time_of_arrival + td;
     }
     for (int i = nwpi - 1, j = nwpi; i >= 0; --i, --j) {
-        double td = (way.data[j].coord - way.data[i].coord).len() / speed_scaler(way.data[i].speed);
-        way.data[i].time_of_arrival = way.data[j].time_of_arrival - td;
+        double td = (wdt[j].coord - wdt[i].coord).len() / speed_scaler(wdt[i].speed);
+        wdt[i].time_of_arrival = wdt[j].time_of_arrival - td;
     }
 }
 

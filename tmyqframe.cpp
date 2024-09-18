@@ -115,7 +115,7 @@ void TmyQFrame::paintEvent(QPaintEvent *)
     for (TGroup *group : world->groups) {
         if (group->filter_draw_group) {
             if (group->filter_draw_way)
-                draw_way(&p, group->way, Qt::PenStyle::DashLine, 1, cl_Way);
+                draw_way(&p, group->way_LBD, Qt::PenStyle::DashLine, 1, cl_Way);
             for (TUnit &unit : group->units) {
                 TGameCoord c = unit.coord;
                 if (( c.x > b1.x) && ( c.x < b2.x) &&
@@ -129,7 +129,7 @@ void TmyQFrame::paintEvent(QPaintEvent *)
         ( c.y > b1.y) && ( c.y < b2.y) )
         draw_unit(&p, &(world->my_boat), clGreen);
     if (selected_way != -1)
-        draw_way(&p, world->groups[selected_way]->way, Qt::PenStyle::SolidLine, 2, cl_Way);
+        draw_way(&p, world->groups[selected_way]->way_full, Qt::PenStyle::SolidLine, 2, cl_Way);
 }
 
 void TmyQFrame::mousePressEvent(QMouseEvent *event)
@@ -231,7 +231,7 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
         }
         if (selected_way != -1) {
             mylogger::log(QString("%1 group way selected").arg(selected_way));
-            mylogger::log(QString("way size = %1").arg(world->groups[selected_way]->way.data.size()));
+            mylogger::log(QString("way size = %1").arg(world->groups[selected_way]->way_full.data.size()));
             update();
         }
         else {

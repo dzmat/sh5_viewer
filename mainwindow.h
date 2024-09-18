@@ -9,6 +9,7 @@
 // #include "coords.h"
 // #include "support_classes.h"
 #include "tworld.h"
+#include "tfilter.h"
 // #include "tmyqframe.h"
 
 namespace Ui

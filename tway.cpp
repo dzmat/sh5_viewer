@@ -33,14 +33,14 @@ double TWay::min_distance_to(const TGameCoord &dest) const
     return min_r;
 }
 
-TWay TWay::extract_by_days(double beg, double end)
+TWay TWay::extract_WLBD(double beg, double end)
 {
     size_t SZ = data.size();
     TWay res;
     res.data.resize(data.size());
     size_t dst = 0;
     for (size_t i = 0, j = 1; j < SZ; ++i, ++j) {
-        if (data[j].time_of_arrival >= end) break;
+        if (data[i].time_of_arrival >= end) break;
         if ((data[i].time_of_arrival >= beg) && (data[j].time_of_arrival <= end)) {
             res.data[dst] = data[i], res.data[dst + 1] = data[j];
             ++dst;
@@ -49,6 +49,9 @@ TWay TWay::extract_by_days(double beg, double end)
         double tb = fmax(beg, data[i].time_of_arrival);
         double te = fmin(end, data[j].time_of_arrival);
         if (tb >= te) continue;
+        res.data[dst] = data[i], res.data[dst + 1] = data[j];
+        res.data[dst].time_of_arrival = tb;
+        res.data[dst + 1].time_of_arrival = te;
         TGameCoord cb, ce;
         tb -= data[i].time_of_arrival;
         te -= data[i].time_of_arrival;
@@ -58,10 +61,10 @@ TWay TWay::extract_by_days(double beg, double end)
         TGameCoord &origin = data[i].coord;
         cb = origin + (dir * tb);
         ce = origin + (dir * te);
-        res.data[dst] = data[i], res.data[dst + 1] = data[j];
         res.data[dst].coord = cb;
         res.data[dst + 1].coord = ce;
         ++dst;
     }
+    res.data.resize(dst > 0 ? dst + 1 : 0);
     return res;
 }

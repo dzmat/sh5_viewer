@@ -30,7 +30,7 @@ public:
 
     void load();
     double min_distance_to(const TGameCoord &dest) const;
-    TWay extract_by_days(double beg, double end);
+    TWay extract_WLBD(double beg, double end);
 };
 
 
