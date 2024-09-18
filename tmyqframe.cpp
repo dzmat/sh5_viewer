@@ -51,7 +51,7 @@ void TmyQFrame::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width
         t1 = t2;
         pen.setColor(clBlack);
         p->setPen(pen);
-        p->drawText(t2, QString::number(w.data[i].waypoint_index) + "\n" + QString::number(w.data[i].time_of_arrival, 'f', 1));
+        p->drawText(t2, QString::number(w.data[i].waypoint_index) + " , ETA=" + QString::number(w.data[i].time_of_arrival, 'f', 1));
     }
 }
 
