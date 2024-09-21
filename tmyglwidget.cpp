@@ -2,22 +2,25 @@
 #include <QWheelEvent>
 #include <QMouseEvent>
 
-#include "tmyqframe.h"
+#include "tmyglwidget.h"
 #include "mylog.h"
+#include <QPainter>
+#include <QWheelEvent>
+#include <QMouseEvent>
 
-TmyQFrame::TmyQFrame(QWidget *parent)
-    : QFrame(parent)
+TmyGLWidget::TmyGLWidget(QWidget *parent)
+    : QOpenGLWidget(parent)
 {
     drag.started = false;
     viewpoint.m = 10000.0;
     selected_way = -1;
     setMouseTracking(true);
     timer = new QTimer(this);
-    QObject::connect(timer, &QTimer::timeout, this, &TmyQFrame::onTimer);
+    QObject::connect(timer, &QTimer::timeout, this, &TmyGLWidget::onTimer);
     timer->start(50);
 }
 
-void TmyQFrame::draw_intercept_circle(QPainter *p)
+void TmyGLWidget::draw_intercept_circle(QPainter *p)
 {
     // draws intercept green dashed circle
     // prepare brush
@@ -36,7 +39,7 @@ void TmyQFrame::draw_intercept_circle(QPainter *p)
     p->drawEllipse(center, eR, eR);
 }
 
-void TmyQFrame::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width, QColor cl)
+void TmyGLWidget::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width, QColor cl)
 {
     if (w.data.size() < 2) return; // nothing to draw;
     QPen pen;
@@ -55,7 +58,7 @@ void TmyQFrame::draw_way(QPainter *p, const TWay &w, Qt::PenStyle stt, int width
     }
 }
 
-QColor TmyQFrame::get_color_by_type(int type)
+QColor TmyGLWidget::get_color_by_type(int type)
 {
     if ((type >= 100) && (type <= 199)) return clBlack; // Cargo
     if ((type == 4) || (type == 2) || (type == 1)) return clRed;
@@ -71,7 +74,7 @@ QPointF calc_line_end_by_heading(const QPointF &beg, const double len, const dou
     return QPointF(sin(a), cos(a)) * len + beg;
 }
 
-void TmyQFrame::draw_arrow(QPainter *c, const QPointF &begin, double len, double heading, QColor col, Qt::PenStyle style, int width)
+void TmyGLWidget::draw_arrow(QPainter *c, const QPointF &begin, double len, double heading, QColor col, Qt::PenStyle style, int width)
 {
     double const h_head_part_len = 10.0;    // length of arrow head parts.
     QPointF end = calc_line_end_by_heading(begin, len, heading);
@@ -89,7 +92,7 @@ void TmyQFrame::draw_arrow(QPainter *c, const QPointF &begin, double len, double
     c->drawLine(end, tip2);
 }
 
-void TmyQFrame::draw_unit(QPainter *p, const TUnit *unit, QColor color = clBlack)
+void TmyGLWidget::draw_unit(QPainter *p, const TUnit *unit, QColor color = clBlack)
 {
     QPointF c = g2i_QPoint(unit->coord);
 
@@ -101,13 +104,15 @@ void TmyQFrame::draw_unit(QPainter *p, const TUnit *unit, QColor color = clBlack
         draw_arrow(p, c, arrow_len, unit->heading, color, Qt::PenStyle::SolidLine, 2);
 }
 
-void TmyQFrame::paintEvent(QPaintEvent *)
+void TmyGLWidget::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
 
+    p.setRenderHint(QPainter::Antialiasing);
     // TODO: rewrite painting code
     int iw = width();
     int ih = height();
+    p.fillRect(QRect(0, 0, iw, ih), cl_background);
     TGameCoord b1 = QPointF_i2g(QPointF(0, ih));
     TGameCoord b2 = QPointF_i2g(QPointF(iw, 0));
     // Image1->Canvas->FillRect(Rect(0,0,iw,ih));
@@ -132,14 +137,14 @@ void TmyQFrame::paintEvent(QPaintEvent *)
         draw_way(&p, world->groups[selected_way]->way_full, Qt::PenStyle::SolidLine, 2, cl_Way);
 }
 
-void TmyQFrame::mousePressEvent(QMouseEvent *event)
+void TmyGLWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::MouseButton::LeftButton)
         // drag_start(event->x(), event->y());
         drag_start(event->position());
 }
 
-void TmyQFrame::mouseMoveEvent(QMouseEvent *event)
+void TmyGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
 
     const QPointF pos = event->position();
@@ -165,16 +170,16 @@ void TmyQFrame::mouseMoveEvent(QMouseEvent *event)
     emit changed_polar_coords(r, head);
 }
 
-extern void summary_add_unit(TStringList *sum, const TUnit &u);
-// {
-//     std::string s = sum->getValue(u.s_class);
-//     int cnt = 0;
-//     if (s.length() != 0)
-//         cnt = std::stoi(s);
-//     sum->setValue(u.s_class, std::to_string(cnt + 1));
-// }
+void summary_add_unit(TStringList *sum, const TUnit &u)
+{
+    std::string s = sum->getValue(u.s_class);
+    int cnt = 0;
+    if (s.length() != 0)
+        cnt = std::stoi(s);
+    sum->setValue(u.s_class, std::to_string(cnt + 1));
+}
 
-void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
+void TmyGLWidget::mouseReleaseEvent(QMouseEvent *event)
 {
     const QPointF pos = event->position();
     if (event->button() == Qt::MouseButton::LeftButton) {
@@ -241,28 +246,29 @@ void TmyQFrame::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void TmyQFrame::resizeEvent(QResizeEvent *)
+void TmyGLWidget::onResized()
 {
     viewpoint.o_x = width() / 2;
     viewpoint.o_y = height() / 2;
+    mylogger::log(QString("resize event %1 %2").arg(width()).arg(height()));
     emit size_changed();
 }
 
-void TmyQFrame::drag_start(const QPointF &position)
+void TmyGLWidget::drag_start(const QPointF &position)
 {
     drag.gc = QPointF_i2g(position);
     drag.mouse_position = position;
     drag.started = true;
 }
 
-void TmyQFrame::drag_end(const QPointF &pos)
+void TmyGLWidget::drag_end(const QPointF &pos)
 {
     TGameCoord t = QPointF_i2g(pos);
     viewpoint.pos += (drag.gc - t);
     drag.started = false;
 }
 
-void TmyQFrame::wheelEvent(QWheelEvent *event)
+void TmyGLWidget::wheelEvent(QWheelEvent *event)
 {
     const double WheelStep = 1.2;
     QPoint numDegrees = event->angleDelta() / 8;
@@ -288,7 +294,7 @@ void TmyQFrame::wheelEvent(QWheelEvent *event)
     emit scale_changed();
 }
 
-void TmyQFrame::onTimer()
+void TmyGLWidget::onTimer()
 {
     if (drag.started) {
         drag_end(drag.mouse_position);

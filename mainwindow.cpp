@@ -42,9 +42,9 @@ MainWindow::MainWindow(QWidget *parent)
     load_world(debugSavegameFilename);
 #endif
     // interface start setup
-    QObject::connect(ui->Image1, &TmyQFrame::size_changed, this, &MainWindow::update_m);
-    QObject::connect(ui->Image1, &TmyQFrame::scale_changed, this, &MainWindow::update_m);
-    QObject::connect(ui->Image1, &TmyQFrame::changed_polar_coords, this, &MainWindow::update_polar_coords);
+    QObject::connect(ui->Image1, &TmyGLWidget::size_changed, this, &MainWindow::update_m);
+    QObject::connect(ui->Image1, &TmyGLWidget::scale_changed, this, &MainWindow::update_m);
+    QObject::connect(ui->Image1, &TmyGLWidget::changed_polar_coords, this, &MainWindow::update_polar_coords);
 }
 
 MainWindow::~MainWindow()
@@ -76,7 +76,7 @@ void MainWindow::load_world(const QString &fname)
 
 void MainWindow::update_m()
 {
-    TmyQFrame *img = ui->Image1;
+    TmyGLWidget *img = ui->Image1;
     double sq_size = img->viewpoint.m * img->width() / 1000.0;
     ui->e_sq_size->setText(QString("%1").arg(sq_size));
     ui->e_coef->setText(QString("%1").arg(img->viewpoint.m));
@@ -207,4 +207,9 @@ void MainWindow::on_daysAfterLineEdit_textChanged(const QString &arg1)
         filter->set_days_after(test);    // update filter
         ui->Image1->update();
     }
+}
+
+void MainWindow::on_Image1_resized()
+{
+    ui->Image1->onResized();
 }

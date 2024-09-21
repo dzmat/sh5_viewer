@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += openglwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,6 +32,7 @@ SOURCES += \
     coords.cpp \
     read_functions.cpp \
     support_classes.cpp \
+    tmyglwidget.cpp \
     tmyqframe.cpp \
     tway.cpp \
     tworld.cpp \
@@ -42,6 +44,7 @@ HEADERS += \
     read_functions.h \
     support_classes.h \
     tfilter.h \
+    tmyglwidget.h \
     tmyqframe.h \
     tway.h \
     tworld.h \
