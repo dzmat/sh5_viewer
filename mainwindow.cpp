@@ -28,6 +28,13 @@ MainWindow::MainWindow(QWidget *parent)
     mylogger::log("Mainwindow constructor started");
     filter = std::make_shared<TFilter>();
     //    DecimalSeparator='.';
+    //    init filter fields here
+    ui->spinMinGroup->setValue(0);
+    ui->chZeroSpeeds->setCheckState(Qt::Unchecked);
+    ui->eradius_of_intercept->setText("50");
+    ui->e_flt_type_of_ship->setText("");
+    ui->daysBeforeLineEdit->setText("0.0");
+    ui->daysAfterLineEdit->setText("1.0");
 
     // world setup
     installNewWorld(std::make_shared<TWorld>());
@@ -35,8 +42,6 @@ MainWindow::MainWindow(QWidget *parent)
     load_world(debugSavegameFilename);
 #endif
     // interface start setup
-    ui->Image1->interceptRadius = 50;
-    // ui->eradius_of_intercept->setText("50");
     QObject::connect(ui->Image1, &TmyQFrame::size_changed, this, &MainWindow::update_m);
     QObject::connect(ui->Image1, &TmyQFrame::scale_changed, this, &MainWindow::update_m);
     QObject::connect(ui->Image1, &TmyQFrame::changed_polar_coords, this, &MainWindow::update_polar_coords);

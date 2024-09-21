@@ -40,6 +40,7 @@ private:
     bool have_to_recalc_WLBD;
     void apply_filter()
     {
+        if (!pWorld) return;
         if (radius < 0.0) radius = 0.0;
         const double radius_in_metres = radius * 1000;
         const auto &myCoords = pWorld->my_boat.coord;
