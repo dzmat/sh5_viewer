@@ -1,13 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <memory>
 #include <QtWidgets/QTextEdit>
 #include <QMainWindow>
-#include <QGraphicsScene>
-
-// #include "coords.h"
-// #include "support_classes.h"
 #include "tworld.h"
 #include "tfilter.h"
 
@@ -37,11 +32,8 @@ private slots:
     void update_polar_coords(double r, double head);
     void on_e_coef_textChanged(const QString &arg1);
     void on_pbReloadFile_clicked();
-
     void on_daysBeforeLineEdit_textChanged(const QString &arg1);
-
     void on_daysAfterLineEdit_textChanged(const QString &arg1);
-
     void on_Image1_resized();
 
 private:

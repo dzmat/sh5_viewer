@@ -103,13 +103,11 @@ void TmyGLWidget::paintEvent(QPaintEvent *)
     QPainter p(this);
 
     p.setRenderHint(QPainter::Antialiasing);
-    // TODO: rewrite painting code
     int iw = width();
     int ih = height();
     p.fillRect(QRect(0, 0, iw, ih), cl_background);
     TGameCoord b1 = QPointF_i2g(QPointF(0, ih));
     TGameCoord b2 = QPointF_i2g(QPointF(iw, 0));
-    // Image1->Canvas->FillRect(Rect(0,0,iw,ih));
     draw_intercept_circle(&p);
     for (TGroup *group : world->groups) {
         if (group->filter_draw_group) {
@@ -134,7 +132,6 @@ void TmyGLWidget::paintEvent(QPaintEvent *)
 void TmyGLWidget::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::MouseButton::LeftButton)
-        // drag_start(event->x(), event->y());
         drag_start(event->position());
 }
 
@@ -147,9 +144,6 @@ void TmyGLWidget::mouseMoveEvent(QMouseEvent *event)
         drag.mouse_position = pos;
     // update indication of mouse coordinates
     TGameCoord mouse_game_coords = QPointF_i2g(pos);
-
-    //        e_coords->Text=QString().sprintf("Long %.1f  Lat %.1f", mouse_game_coords.x,mouse_game_coords.y);
-
     // update distance and direction to mouse pointer from boat
     TGameCoord dv = mouse_game_coords - world->my_boat.coord;
     double r = dv.len() / 1000;// from meters to kilometers
@@ -244,7 +238,6 @@ void TmyGLWidget::onResized()
 {
     viewpoint.o_x = width() / 2;
     viewpoint.o_y = height() / 2;
-    mylogger::log(QString("resize event %1 %2").arg(width()).arg(height()));
     emit size_changed();
 }
 
@@ -268,7 +261,6 @@ void TmyGLWidget::wheelEvent(QWheelEvent *event)
     QPoint numDegrees = event->angleDelta() / 8;
     int numSteps = numDegrees.y() / 15;
     QPoint p = event->position().toPoint();
-    // TGameCoord vc=viewpoint.pos;
     TGameCoord b = QPointF_i2g(QPointF(p.x(), p.y()));
     TGameCoord d = viewpoint.pos - b;
     while (numSteps > 0) {

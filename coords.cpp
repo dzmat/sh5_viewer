@@ -15,17 +15,6 @@ const TGameCoord TGameCoord::operator/(const double rhs) const
     return TGameCoord(x / rhs, y / rhs);
 }
 
-const double dd = 2.0;
-
-void test2()
-{
-    TGameCoord a(0, 1);
-    TGameCoord b(a);
-    TGameCoord c;
-    c = a + b;
-    b = ((a + b) / dd);
-}
-
 double line_min_distance(const TGameCoord &a, const TGameCoord &b, const TGameCoord &d)
 {
     if ( (a - b).len_sqr() < 1e-6) return (d - a).len(); // too short line, dont calculate projection.

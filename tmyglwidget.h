@@ -81,7 +81,6 @@ public:
 
     void worldChanged(){selected_way = -1;}
     void setScale(double scale){viewpoint.m = scale;}
-    double getScale(){return viewpoint.m;}
     void drag_start(const QPointF &position);
     void drag_end(const QPointF &pos);
 
