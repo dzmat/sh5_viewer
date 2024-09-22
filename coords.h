@@ -6,7 +6,7 @@
 class TGameCoord
 {
 public:
-    TGameCoord()  {     x = y = 0.0;   }
+    TGameCoord()  {x = y = 0.0;}
     explicit TGameCoord(const double ix, const double iy) : x(ix), y(iy){}
     //    explicit TGameCoord(const my_coord &rhs) : x(rhs.x),y(rhs.y){}
 

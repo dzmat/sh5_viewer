@@ -33,5 +33,5 @@ double line_min_distance(const TGameCoord &a, const TGameCoord &b, const TGameCo
     double proj = (v * (d - a)) / v.len_sqr();
     if (proj < 0) return (d - a).len();
     if (proj > 1) return (d - b).len();
-    return (a + v * proj - d).len();// nearest point is somewhere in the line cut
+    return (a + v * proj - d).len();// nearest point is somewhere in the middle of the line
 }
