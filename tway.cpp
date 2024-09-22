@@ -26,9 +26,11 @@ double TWay::min_distance_to(const TGameCoord &dest) const
 {
     size_t size = data.size();
     double min_r = 1e99;
-    for (size_t i = 0; i < size - 1; i++) {
-        double r = line_min_distance(data[i].coord, data[i + 1].coord, dest);
-        if (r < min_r) min_r = r;
+    if (size >= 2) { // do not process empty ways
+        for (size_t i = 0; i < size - 1; i++) {
+            double r = line_min_distance(data[i].coord, data[i + 1].coord, dest);
+            if (r < min_r) min_r = r;
+        }
     }
     return min_r;
 }
