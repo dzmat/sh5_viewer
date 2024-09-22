@@ -65,12 +65,6 @@ QColor TmyQFrame::get_color_by_type(int type)
     return QColor(170, 0, 255);
 }
 
-QPointF calc_line_end_by_heading(const QPointF &beg, const double len, const double heading)
-{
-    double a = (180 - heading) * M_PI / 180.0;
-    return QPointF(sin(a), cos(a)) * len + beg;
-}
-
 void TmyQFrame::draw_arrow(QPainter *c, const QPointF &begin, double len, double heading, QColor col, Qt::PenStyle style, int width)
 {
     double const h_head_part_len = 10.0;    // length of arrow head parts.
