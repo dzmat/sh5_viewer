@@ -10,7 +10,6 @@
 // #include "support_classes.h"
 #include "tworld.h"
 #include "tfilter.h"
-// #include "tmyqframe.h"
 
 namespace Ui
 {
@@ -42,6 +41,8 @@ private slots:
     void on_daysBeforeLineEdit_textChanged(const QString &arg1);
 
     void on_daysAfterLineEdit_textChanged(const QString &arg1);
+
+    void on_Image1_resized();
 
 private:
     Ui::MainWindow *ui;

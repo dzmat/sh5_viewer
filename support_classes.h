@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <qpoint.h>
 
 
 class TStringList : public std::vector<std::string>
@@ -13,7 +14,7 @@ public:
     void setValue(const std::string &inkey, const std::string &val);
 };
 
-
+QPointF calc_line_end_by_heading(const QPointF &beg, const double len, const double heading);
 
 
 
