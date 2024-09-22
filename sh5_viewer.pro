@@ -33,7 +33,6 @@ SOURCES += \
     read_functions.cpp \
     support_classes.cpp \
     tmyglwidget.cpp \
-    tmyqframe.cpp \
     tway.cpp \
     tworld.cpp \
     mylog.cpp
@@ -45,7 +44,6 @@ HEADERS += \
     support_classes.h \
     tfilter.h \
     tmyglwidget.h \
-    tmyqframe.h \
     tway.h \
     tworld.h \
     mylog.h
