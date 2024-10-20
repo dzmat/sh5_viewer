@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 #ifdef MDEBUG
-const char *debugSavegameFilename = "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000002/Campaign-2020-08-30_1706/CampaignMission.mis";
+const char *debugSavegameFilename = "C:/Users/dinozaur/Documents/SH5/data/cfg/SaveGames/00000002/Campaign-2024-10-09_2354/CampaignMission.mis";
 #endif
 
 
