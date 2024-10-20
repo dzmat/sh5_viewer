@@ -23,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , saveGameFileName("")
 {
+    // this block should be before QOpenGLWidget creation in UI construction
+    QSurfaceFormat fmt;
+    fmt.setSamples(8);
+    QSurfaceFormat::setDefaultFormat(fmt);
+
     ui->setupUi(this);
     mylogger::logptr = ui->textEdit_Memo1;// very dangerous exporting, dirty and quick
     mylogger::log("Mainwindow constructor started");
